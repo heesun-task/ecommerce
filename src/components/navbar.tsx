@@ -72,7 +72,7 @@ export const Navbar = () => {
           variant="secondary"
           className="h-full rounded-none bg-white size-sm"
         >
-          <Link href="/sign-in">
+          <Link href="/login">
             <CircleUserIcon className="size-6"/>
           </Link>
         </Button>
