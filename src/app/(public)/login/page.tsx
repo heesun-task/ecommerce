@@ -1,27 +1,139 @@
+"use client";
 import { ArrowLeft } from "lucide-react";
-import React from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import LinedHeading from "@/components/text/lined-heading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+const headings = {
+  email: "Sign in or create an account",
+  password: "Welcome back",
+};
+
+type Step = keyof typeof headings;
+
 const LogInPage = () => {
+  
+  const router = useRouter();
+
+  const [step, setStep] = useState<Step>("email");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        router.push("/profile");
+      } else {
+        const data = await response.json();
+        setError(data.error || "Login failed");
+      }
+    } catch (err) {
+      //TODO: improve error handling
+      setError("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onClickContinue = () => {
+    if (step === "email") {
+      if (!email) {
+        setError("Please enter your email.");
+        return;
+      }
+      setStep("password");
+      setError(null);
+    } else if (step === "password") {
+      if (!password) {
+        setError("Please enter your password.");
+        return;
+      }
+      handleSubmit();
+    }
+  };
+
+  const onClickBack = () => {
+    if (step === "password") {
+      setStep("email");
+    } else {
+      router.back();
+    }
+  };
+
   return (
     <div>
-      <Button variant={"icon"} title="Back"><ArrowLeft /><span className="font-semibold">BACK</span></Button>
+      <Button variant={"icon"} title="Back" onClick={onClickBack}>
+        <ArrowLeft />
+        <span className="font-semibold">BACK</span>
+      </Button>
+
       <div className="flex flex-col px-4">
         <div className="mb-2">
-          <LinedHeading>Sign in or create an account</LinedHeading>
+          <LinedHeading>{headings[step]}</LinedHeading>
         </div>
+
         {/* Sign in form */}
-        <form action="" className="flex flex-col">
-          <div className="grid w-full items-center mb-4">
-            <Label htmlFor="email">Email address</Label>
-            <Input id="email" type="email" className="w-full my-2" />
-          </div>
-          <Button size={"xlg"} variant={"highlight"} type="submit">
-            CONTINUE
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onClickContinue();
+          }}
+          className="flex flex-col"
+        >
+          {/* Step 1 */}
+          {step === "email" && (
+            <div className="grid w-full items-center mb-4">
+              <Label htmlFor="email">Email address</Label>
+              <Input
+                id="email"
+                type="email"
+                className="w-full my-2"
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+          )}
+
+          {/* Step 2 */}
+          {step === "password" && (
+            <div className="grid w-full items-center mb-4">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                className="w-full my-2"
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+          )}
+
+          {error && <p className="text-sm text-red-500 mb-2">{error}</p>}
+
+          <Button
+            size="xlg"
+            variant="highlight"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : step === "email" ? "CONTINUE" : "SIGN IN"}
           </Button>
         </form>
       </div>

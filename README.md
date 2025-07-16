@@ -19,3 +19,8 @@ All key features were built from scratch, without using boilerplate or templates
 - **Documentation**: Swagger  
 - **Testing**: Jest, Supertest  
 - **CI/CD**: GitHub Actions (test & build), Vercel (auto deployment)
+
+
+## Features
+1. Auth
+This project implements custom authentication logic using bcrypt for password hashing and jsonwebtoken (JWT) for stateless session handling. No external authentication framework like NextAuth was used.
