@@ -11,7 +11,7 @@ const LinedHeading = ({
   return (
     <h2
       className={cn(
-        "text-xl font-semibold relative leading-8",
+        "text-xl font-bold relative leading-8",
         "after:content-[''] after:block after:bg-[var(--highlight)] after:h-1 after:mt-1 after:w-6",
         className
       )}
