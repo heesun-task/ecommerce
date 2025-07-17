@@ -10,8 +10,8 @@ const poppins = Poppins({
 const Logo = () => {
   return (
     <Link href="/">
-      <span className={cn("text-xl font-semibold", poppins.className)}>
-        lululemon
+      <span className={cn("text-xl font-semibold text-peak-forest", poppins.className)}>
+        PEAK
       </span>
     </Link>
   );

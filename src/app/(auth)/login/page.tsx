@@ -10,14 +10,14 @@ import { Label } from "@/components/ui/label";
 
 const texts = {
   headings: {
-    email: "Sign in or create an account",
-    password: "Welcome back",
-    signup: "Become a member with us",
+    email: "Welcome to your journey",
+    password: "Glad to see you again",
+    signup: "Let’s get you started",
   },
   buttonTexts: {
-    email: "CONTINUE",
-    password: "SIGN IN",
-    signup: "CREATE AN ACCOUNT",
+    email: "NEXT",
+    password: "LOG IN",
+    signup: "JOIN NOW",
   },
 };
 
@@ -65,7 +65,9 @@ const LogInPage = () => {
         return;
       }
       try {
-        const res = await fetch("/api/auth/user-exists?email=" + encodeURIComponent(email));
+        const res = await fetch(
+          "/api/auth/user-exists?email=" + encodeURIComponent(email)
+        );
         const data = await res.json();
 
         if (res.ok && data.exists) {
@@ -77,18 +79,18 @@ const LogInPage = () => {
         }
       } catch (err) {
         setError("Failed to check email. Please try again.");
-      } 
+      }
       return;
     }
-    
+
     if (step === "password") {
       if (!password) {
         setError("Please enter your password.");
         return;
       }
       handleLogin();
-    } 
-    
+    }
+
     if (step === "signup") {
       if (!password) {
         setError("Please create a password.");
@@ -173,6 +175,22 @@ const LogInPage = () => {
             {/* Step 3 - Signup */}
             {step === "signup" && (
               <div className="grid w-full items-center mb-4">
+                <span className="text-sm text-gray-500 mb-2">
+                  Creating your account as <strong>{email}</strong>
+                  <Button
+                    variant="link"
+                    className="ml-2 p-0 h-auto text-gray-600 underline"
+                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                      e.preventDefault();
+                      setStep("email");
+                      setEmail("");
+                      setPassword("");
+                      setError(null);
+                    }}
+                  >
+                    Change
+                  </Button>
+                </span>
                 <Label htmlFor="signup-email">Email address</Label>
                 <Input
                   id="signup-email"
@@ -181,7 +199,9 @@ const LogInPage = () => {
                   disabled
                   className="w-full my-2 bg-gray-50"
                 />
-                <Label htmlFor="signup-password" className="mt-2">Create password</Label>
+                <Label htmlFor="signup-password" className="mt-2">
+                  Create password
+                </Label>
                 <Input
                   id="signup-password"
                   type="password"
@@ -204,8 +224,9 @@ const LogInPage = () => {
               {loading ? "Loading..." : buttonTexts[step]}
             </Button>
             <div className="text-xs text-gray-500 mt-2">
-              By signing in or creating a member account, you agree to the Terms
-              of Use and acknowledge the Privacy Policy.
+              By continuing, you agree to our{" "}
+              <a className="underline hover:cursor-pointer">Terms of Service</a> and
+              acknowledge our <span className="underline hover:cursor-pointer">Privacy Policy</span>.
             </div>
           </form>
         </div>
