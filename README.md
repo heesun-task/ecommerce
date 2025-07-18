@@ -28,10 +28,36 @@ A fully functional e-commerce platform built from scratch, targeting the Canadia
 ## Features
 1. Auth
 - Smart login/signup logic: Checks if an email exists --> dynamically shows login or signup form.
+
 - Secure JWT + Cookie-based Authentication
-  - Validates user credentials using hashed passwords
-      On success:
-        generate accessToken: valid for 15 min
-        generate refreshToken: valid for 7 days
+  - Validates user credentials using hashed passwords. 
+    On success:
+    - generate accessToken: valid for 15 min
+    - generate refreshToken: valid for 7 days
+
   - save a session record in the database containing both tokens and expiration info
   - sends both tokens to the browser as Http-only cookies
+
+
+### Setup Instructions
+1. Start the PostgresSQL container via Docker
+    ```bash
+    docker compose up -d
+    ```
+
+2. Install dependencies and prepare database
+    ```bash
+    npm install
+    ```
+
+    Internally, this runs:
+    ```bash
+    npx prisma generate    # Generate Prisma Client
+    npx prisma db push     # Push schema to the database
+    npm install            # Install Node.js dependencies
+    ```
+
+3. Start development:
+    ```bash
+    npm run dev
+    ```
