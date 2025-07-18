@@ -42,11 +42,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# test
-/test-files
-
-/src/generated/prisma
-
 # Prisma
-/prisma/generated/
 /node_modules/.prisma/
