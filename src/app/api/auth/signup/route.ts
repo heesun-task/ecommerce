@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyPassword, generateTokens } from '@/lib/auth'
-import { isValidEmail } from '@/lib/validators'
-import { getUserWithPasswordByEmail } from '@/lib/user'
+import { hashPassword, generateTokens } from '@/lib/auth'
+import { isValidEmail, isValidPassword } from '@/lib/validators'
+import { getUserByEmail, createUser } from '@/lib/user'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json()
+    const { email, password, name } = await req.json()
 
-    // Input validation
+    // validate inputs
     if (!email || !password) {
       return NextResponse.json(
         { error: 'Email and password are required', code: 'MISSING_FIELDS' },
@@ -23,30 +23,40 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Retrieve a user using an email
-    const user = await getUserWithPasswordByEmail(email)
-
-    if (!user || !(await verifyPassword(password, user.password))) {
+    if (!isValidPassword(password)) {
       return NextResponse.json(
-        { error: 'Invalid credentials', code: 'INVALID_CREDENTIALS' },
-        { status: 401 }
+        { error: 'Password must be at least 8 characters with letters and numbers', code: 'INVALID_PASSWORD' },
+        { status: 400 }
       )
     }
 
-    // create a token
+    // check the email duplication
+    const existingUser = await getUserByEmail(email)
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'Email already exists', code: 'EMAIL_EXISTS' },
+        { status: 409 }
+      )
+    }
+
+    // password hashing
+    const hashedPassword = await hashPassword(password)
+
+    // create a user
+    const user = await createUser(email, hashedPassword, name)
+
+    // generate a token
     const { accessToken, refreshToken } = generateTokens(user.id, user.role)
 
-    // save session to DB to manage the refresh token
     await prisma.session.create({
       data: {
         userId: user.id,
         accessToken,
         refreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7일
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       }
     })
 
-    // generate response
     const response = NextResponse.json({
       success: true,
       user: {
@@ -57,13 +67,12 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // set cookie
     response.cookies.set('accessToken', accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 15 * 60, // 15 min
+      maxAge: 15 * 60,
     })
 
     response.cookies.set('refreshToken', refreshToken, {
@@ -71,13 +80,13 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 7 * 24 * 60 * 60, // 7 days
+      maxAge: 7 * 24 * 60 * 60,
     })
 
     return response
 
   } catch (error) {
-    console.error('Login Error:', error)
+    console.error('Signup Error:', error)
     return NextResponse.json(
       { error: 'Internal server error', code: 'INTERNAL_ERROR' },
       { status: 500 }
