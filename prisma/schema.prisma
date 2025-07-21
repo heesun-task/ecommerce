@@ -50,3 +50,56 @@ model Session {
   @@map("sessions")
 }
 
+model Category {
+  id            String      @id @default(cuid())
+  name          String    
+  slug          String      @unique
+  description   String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // relation
+  parentId      String?     // top category if parentId is null
+  parent        Category?   @relation("CategoryParent", fields: [parentId], references: [id])
+  children      Category[]  @relation("CategoryParent")
+  Product       Product[]
+}
+
+model Product {
+  id            String    @id @default(cuid())
+  name          String
+  slug          String    @unique
+  description   String?
+  images        String[]
+  basePrice     Float?    // base price for the product, can be overridden by variants
+  active        Boolean   @default(true)
+  featured      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relation
+  categoryId    String
+  category      Category  @relation(fields: [categoryId], references: [id])
+  variants      ProductVariant[]
+
+  @@map("products")
+}
+
+
+model ProductVariant {
+  id            String    @id @default(cuid())
+  sku           String    @unique // Stock Keeping Unit
+  size          String
+  color         String
+  price         Float     // final price for this variant
+  stock         Int       @default(0)
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relation
+  productId     String
+  product       Product   @relation(fields: [productId], references: [id])
+
+  @@map("product_variants")
+}

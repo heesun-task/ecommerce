@@ -32,8 +32,8 @@ const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
 };
 
 const navbarItems = [
-  { href: "/women", children: "Women" },
-  { href: "/men", children: "Men" },
+  { href: "/womens", children: "Women" },
+  { href: "/mens", children: "Men" },
   { href: "/bags", children: "Bags" },
   { href: "/accessories", children: "Accessories" },
   { href: "/whats-new", children: "What's New" },
