@@ -1,18 +1,16 @@
-import { cn } from "@/lib/utils";
-import { Poppins } from "next/font/google";
 import Link from "next/link";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["700"],
-});
+import Image from "next/image";
 
 const Logo = () => {
   return (
-    <Link href="/">
-      <span className={cn("text-xl font-semibold text-peak-forest", poppins.className)}>
-        PEAK
-      </span>
+    <Link href="/" passHref>
+        <Image
+          src="/images/peak-logo.png"
+          alt="Peak"
+          width={90}
+          height={30}
+          priority
+        />
     </Link>
   );
 }
