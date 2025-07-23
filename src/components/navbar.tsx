@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import { CircleUserIcon, MenuIcon, ShoppingCartIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { NavbarSidebar } from "./navbar-sidebar";
@@ -23,7 +23,7 @@ const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
       variant="ghost"
       className={cn(
         "bg-transparent hover:bg-transparent hover:border-primary border-transparent px-2 text-sm relative",
-        isActive && "after:content-[''] after:block after:h-0.5 after:bg-gray-500 after:absolute after:left-1 after:right-1 after:bottom-1.5",
+        isActive && "text-peak-forest font-semibold",
       )}
     >
       <Link href={href}>{children}</Link>
@@ -43,9 +43,28 @@ const navbarItems = [
 export const Navbar = () => {
   const pathName = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className="h-[70px] pl-6 flex border-b justify-between items-center font-medium bg-white">
+    <nav
+      className={cn(
+        "fixed z-10 h-[70px] flex justify-between items-center font-medium bg-white p-2",
+        "transition-all duration-300 top-0 left-1/2 -translate-x-1/2",
+        isSticky
+          ? "w-[calc(100%-5rem)]"
+          : "w-full"
+      )}
+    >
       <Logo />
 
       {/* Navbar Items */}
