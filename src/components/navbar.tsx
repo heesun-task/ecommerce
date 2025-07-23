@@ -22,8 +22,8 @@ const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
       asChild
       variant="ghost"
       className={cn(
-        "bg-transparent hover:bg-transparent hover:border-primary border-transparent px-2 text-sm relative",
-        isActive && "text-peak-forest font-semibold",
+        "bg-transparent hover:bg-transparent hover:text-peak-forest border-transparent px-2 text-sm relative",
+        isActive && "text-peak-forest hover:text-peak-forest",
       )}
     >
       <Link href={href}>{children}</Link>
@@ -47,7 +47,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 0);
+      setIsSticky(window.scrollY > 140);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -59,7 +59,7 @@ export const Navbar = () => {
     <nav
       className={cn(
         "fixed z-10 h-[70px] flex justify-between items-center font-medium bg-white p-2",
-        "transition-all duration-300 top-0 left-1/2 -translate-x-1/2",
+        "transition-all duration-200 top-0 left-1/2 -translate-x-1/2",
         isSticky
           ? "w-[calc(100%-5rem)]"
           : "w-full"
