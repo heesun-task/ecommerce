@@ -22,8 +22,8 @@ const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
       asChild
       variant="ghost"
       className={cn(
-        "bg-transparent hover:bg-transparent rounded-full hover:border-primary border-transparent px-2 text-sm",
-        isActive && "bg-black text-white hover:bg-black hover:text-white",
+        "bg-transparent hover:bg-transparent hover:border-primary border-transparent px-2 text-sm relative",
+        isActive && "after:content-[''] after:block after:h-0.5 after:bg-gray-500 after:absolute after:left-1 after:right-1 after:bottom-1.5",
       )}
     >
       <Link href={href}>{children}</Link>

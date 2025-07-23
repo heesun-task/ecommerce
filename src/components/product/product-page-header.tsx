@@ -1,25 +1,29 @@
 import Container from "../layouts/container";
+import { BreadcrumbItemType, ProductBreadcrumbs } from "./product-breadcrumbs";
 
-type ProductBannerProps = {
+type ProductPageHeaderProps = {
   title: string;
   description: string;
   image: string;
+  breadcrumbs: BreadcrumbItemType[];
   children?: React.ReactNode;
 };
 
-const ProductBanner = ({
+const ProductPageHeader = ({
   title,
   description,
   image,
+  breadcrumbs,
   children,
-}: ProductBannerProps) => {
+}: ProductPageHeaderProps) => {
   return (
     <div
       className="relative bg-cover bg-[position:left_20%_top_40%] text-white min-h-[300px] flex items-center justify-center"
       style={{ backgroundImage: `url('${image}')` }}
     >
       <Container>
-        <h2 className="text-3xl font-bold font-serif mb-3">{title}</h2>
+        <ProductBreadcrumbs items={breadcrumbs} />
+        <h2 className="text-3xl font-bold font-serif mb-3 mt-3">{title}</h2>
         <p className="whitespace-pre-line">{description}</p>
         {children}
       </Container>
@@ -27,4 +31,4 @@ const ProductBanner = ({
   );
 };
 
-export default ProductBanner;
+export default ProductPageHeader;
