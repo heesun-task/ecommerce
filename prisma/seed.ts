@@ -1,478 +1,628 @@
-// prisma/seed.ts
-import { PrismaClient } from '@prisma/client'
+// ==================== Professional Outdoor Brand Category Structure ====================
 
-const prisma = new PrismaClient()
+/*
+ =Structure
+
+Header Menu (5 main categories):
+├── MEN'S
+│   ├── Jackets & Vests
+│   ├── Tops & Base Layers  
+│   └── Bottoms
+├── WOMEN'S
+│   ├── Jackets & Vests
+│   ├── Tops & Base Layers
+│   └── Bottoms
+├── FOOTWEAR
+│   ├── Hiking Boots
+│   └── Trail Shoes
+├── BAGS
+│   ├── Backpacks
+│   └── Daypacks
+└── SALE
+    └── (Discounted versions of existing products)
+
+*/
+
+// ==================== Updated Seed Data ====================
+
+// prisma/seed.ts
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 async function main() {
+  console.log('Starting seed data creation...');
 
-  // remove original data (only in dev)
-  await prisma.productVariant.deleteMany()
-  await prisma.product.deleteMany()
-  await prisma.category.deleteMany()
-  await prisma.session.deleteMany()
-  await prisma.user.deleteMany()
+  // Clean existing data
+  try {
+    await prisma.productCategory.deleteMany({});
+    await prisma.productVariant.deleteMany({});
+    await prisma.product.deleteMany({});
+    await prisma.category.deleteMany({});
+    console.log('Existing data cleaned');
+  } catch (error) {
+    console.log('No existing data to clean');
+  }
 
-  // 1. user
-  const adminUser = await prisma.user.create({
-    data: {
-      email: 'admin@peakcanada.com',
-      password: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LwlAF0fhTc8K9q8Yu', // "password123"
-      name: 'PEAK Admin',
+  // ==================== Admin User ====================
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@outdoor.com' },
+    update: {},
+    create: {
+      email: 'admin@outdoor.com',
+      name: 'Admin User',
+      password: '$2b$10$K7L1oEoO5SkqhHKDw1tKTeoqRF1X.nB1Qr8xO9Oj4w1nRsEPHJ82q',
       role: 'ADMIN',
       emailVerified: true
     }
-  })
+  });
 
-  // 2. top categories
-  const mens = await prisma.category.create({
+  // ==================== Main Categories (5) ====================
+  
+  const mensCategory = await prisma.category.create({
     data: {
-      name: "Men's",
+      name: 'Men\'s',
       slug: 'mens',
-      description: 'Outdoor gear designed for men',
-      parentId: null
+      description: 'Men\'s outdoor clothing and gear',
+      image: '/images/categories/mens-hero.jpg'
     }
-  })
+  });
 
-  const womens = await prisma.category.create({
+  const womensCategory = await prisma.category.create({
     data: {
-      name: "Women's",
+      name: 'Women\'s',
       slug: 'womens',
-      description: 'Outdoor gear designed for women',
-      parentId: null
+      description: 'Women\'s outdoor clothing and gear',
+      image: '/images/categories/womens-hero.jpg'
     }
-  })
+  });
 
-  const unisex = await prisma.category.create({
+  const footwearCategory = await prisma.category.create({
     data: {
-      name: 'Unisex',
-      slug: 'unisex',
-      description: 'Outdoor gear for everyone',
-      parentId: null
+      name: 'Footwear',
+      slug: 'footwear',
+      description: 'Hiking boots, trail runners, and outdoor footwear',
+      image: '/images/categories/footwear-hero.jpg'
     }
-  })
+  });
 
-  // 3. sub categories
+  const bagsCategory = await prisma.category.create({
+    data: {
+      name: 'Bags',
+      slug: 'bags',
+      description: 'Backpacks, daypacks, and outdoor accessories',
+      image: '/images/categories/bags-hero.jpg'
+    }
+  });
+
+  const saleCategory = await prisma.category.create({
+    data: {
+      name: 'Sale',
+      slug: 'sale',
+      description: 'Discounted outdoor gear and clothing',
+      image: '/images/categories/sale-hero.jpg'
+    }
+  });
+
+  // ==================== Subcategories ====================
+
+  // Men's subcategories
   const mensJackets = await prisma.category.create({
     data: {
-      name: 'Jackets',
-      slug: 'mens-jackets',
-      description: 'Insulated and shell jackets for men',
-      parentId: mens.id
+      name: 'Jackets & Vests',
+      slug: 'mens-jackets-vests',
+      description: 'Men\'s outdoor jackets, shells, and vests',
+      parentId: mensCategory.id
     }
-  })
+  });
 
-  const mensPants = await prisma.category.create({
+  const mensTops = await prisma.category.create({
     data: {
-      name: 'Pants',
-      slug: 'mens-pants',
-      description: 'Hiking and outdoor pants for men',
-      parentId: mens.id
+      name: 'Tops & Base Layers',
+      slug: 'mens-tops-base-layers',
+      description: 'Men\'s shirts, hoodies, and base layers',
+      parentId: mensCategory.id
     }
-  })
+  });
 
-  const mensAccessories = await prisma.category.create({
+  const mensBottoms = await prisma.category.create({
     data: {
-      name: 'Accessories',
-      slug: 'mens-accessories',
-      description: 'Hats, gloves, and accessories for men',
-      parentId: mens.id
+      name: 'Bottoms',
+      slug: 'mens-bottoms',
+      description: 'Men\'s pants, shorts, and hiking bottoms',
+      parentId: mensCategory.id
     }
-  })
+  });
 
+  // Women's subcategories
   const womensJackets = await prisma.category.create({
     data: {
-      name: 'Jackets',
-      slug: 'womens-jackets',
-      description: 'Insulated and shell jackets for women',
-      parentId: womens.id
+      name: 'Jackets & Vests',
+      slug: 'womens-jackets-vests',
+      description: 'Women\'s outdoor jackets, shells, and vests',
+      parentId: womensCategory.id
     }
-  })
+  });
 
-  const womensPants = await prisma.category.create({
+  const womensTops = await prisma.category.create({
     data: {
-      name: 'Pants',
-      slug: 'womens-pants',
-      description: 'Hiking and outdoor pants for women',
-      parentId: womens.id
+      name: 'Tops & Base Layers',
+      slug: 'womens-tops-base-layers',
+      description: 'Women\'s shirts, hoodies, and base layers',
+      parentId: womensCategory.id
     }
-  })
+  });
 
-  const gear = await prisma.category.create({
+  const womensBottoms = await prisma.category.create({
     data: {
-      name: 'Gear',
-      slug: 'gear',
-      description: 'Backpacks, equipment, and outdoor gear',
-      parentId: unisex.id
+      name: 'Bottoms',
+      slug: 'womens-bottoms',
+      description: 'Women\'s pants, shorts, and hiking bottoms',
+      parentId: womensCategory.id
     }
-  })
+  });
 
-  // 4. Men's products
-  
-  // Arctic Jacket (Men's)
-  const arcticJacket = await prisma.product.create({
+  // Footwear subcategories
+  const hikingBoots = await prisma.category.create({
     data: {
-      name: 'Arctic Insulation Jacket',
-      slug: 'arctic-insulation-jacket',
-      description: 'Premium down insulation jacket designed for extreme Canadian winters. Tested in -40°C conditions.',
-      basePrice: 299.99,
-      images: [
-        '/images/arctic-jacket-forest.jpg',
-        '/images/arctic-jacket-detail.jpg'
-      ],
+      name: 'Hiking Boots',
+      slug: 'hiking-boots',
+      description: 'Waterproof hiking boots and mountaineering boots',
+      parentId: footwearCategory.id
+    }
+  });
+
+  const trailShoes = await prisma.category.create({
+    data: {
+      name: 'Trail Shoes',
+      slug: 'trail-shoes',
+      description: 'Trail running shoes and approach shoes',
+      parentId: footwearCategory.id
+    }
+  });
+
+  // Bags subcategories
+  const backpacks = await prisma.category.create({
+    data: {
+      name: 'Backpacks',
+      slug: 'backpacks',
+      description: 'Multi-day backpacks and expedition packs',
+      parentId: bagsCategory.id
+    }
+  });
+
+  const daypacks = await prisma.category.create({
+    data: {
+      name: 'Daypacks',
+      slug: 'daypacks',
+      description: 'Day hiking packs and travel bags',
+      parentId: bagsCategory.id
+    }
+  });
+
+  console.log('Categories and subcategories created');
+
+  // ==================== Sample Products (2-3 per subcategory) ====================
+
+  // 1. Men's Jackets & Vests (3 products)
+  const mensDownJacket = await prisma.product.create({
+    data: {
+      name: 'Men\'s Alpine Down Jacket',
+      slug: 'mens-alpine-down-jacket',
+      description: 'Lightweight down jacket with 800-fill power goose down insulation.',
+      shortDescription: 'Lightweight down jacket with 800-fill insulation',
+      images: ['/images/products/mens-down-jacket-1.jpg'],
+      basePrice: 349,
+      material: 'Ripstop Nylon, 800-Fill Goose Down',
       featured: true,
-      categoryId: mensJackets.id,
       variants: {
         create: [
-          {
-            sku: 'ARCTIC-M-S-FOREST',
-            size: 'S',
-            color: 'Forest Green',
-            price: 299.99,
-            stock: 15
-          },
-          {
-            sku: 'ARCTIC-M-M-FOREST',
-            size: 'M',
-            color: 'Forest Green',
-            price: 299.99,
-            stock: 25
-          },
-          {
-            sku: 'ARCTIC-M-L-FOREST',
-            size: 'L',
-            color: 'Forest Green',
-            price: 299.99,
-            stock: 20
-          },
-          {
-            sku: 'ARCTIC-M-XL-FOREST',
-            size: 'XL',
-            color: 'Forest Green',
-            price: 319.99,
-            stock: 12
-          },
-          {
-            sku: 'ARCTIC-M-M-STONE',
-            size: 'M',
-            color: 'Stone Grey',
-            price: 299.99,
-            stock: 18
-          },
-          {
-            sku: 'ARCTIC-M-L-STONE',
-            size: 'L',
-            color: 'Stone Grey',
-            price: 299.99,
-            stock: 16
-          }
+          { sku: 'MDJ-S-BLK', size: 'S', color: 'Black', price: 349, stock: 8 },
+          { sku: 'MDJ-M-BLK', size: 'M', color: 'Black', price: 349, stock: 12 },
+          { sku: 'MDJ-L-BLK', size: 'L', color: 'Black', price: 349, stock: 10 },
+          { sku: 'MDJ-XL-BLK', size: 'XL', color: 'Black', price: 349, stock: 6 },
+          { sku: 'MDJ-M-NVY', size: 'M', color: 'Navy', price: 349, stock: 9 },
+          { sku: 'MDJ-L-NVY', size: 'L', color: 'Navy', price: 349, stock: 7 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensJackets.id }
         ]
       }
     }
-  })
+  });
 
-  // Trail Pants (Men's)
-  const trailPants = await prisma.product.create({
+  const mensShellJacket = await prisma.product.create({
     data: {
-      name: 'Trail Performance Pants',
-      slug: 'trail-performance-pants',
-      description: 'Durable hiking pants with reinforced knees and water-resistant coating. Perfect for Rocky Mountain trails.',
-      basePrice: 149.99,
-      images: [
-        '/images/trail-pants-stone.jpg',
-        '/images/trail-pants-action.jpg'
-      ],
-      categoryId: mensPants.id,
+      name: 'Men\'s Storm Shell Jacket',
+      slug: 'mens-storm-shell-jacket',
+      description: 'Waterproof and breathable shell jacket for alpine conditions.',
+      shortDescription: 'Waterproof shell jacket for alpine use',
+      images: ['/images/products/mens-shell-jacket-1.jpg'],
+      basePrice: 299,
+      material: 'Gore-Tex Pro',
       variants: {
         create: [
-          {
-            sku: 'TRAIL-M-30-STONE',
-            size: '30',
-            color: 'Stone Grey',
-            price: 149.99,
-            stock: 22
-          },
-          {
-            sku: 'TRAIL-M-32-STONE',
-            size: '32',
-            color: 'Stone Grey',
-            price: 149.99,
-            stock: 28
-          },
-          {
-            sku: 'TRAIL-M-34-STONE',
-            size: '34',
-            color: 'Stone Grey',
-            price: 149.99,
-            stock: 25
-          },
-          {
-            sku: 'TRAIL-M-32-FOREST',
-            size: '32',
-            color: 'Forest Green',
-            price: 149.99,
-            stock: 20
-          },
-          {
-            sku: 'TRAIL-M-34-FOREST',
-            size: '34',
-            color: 'Forest Green',
-            price: 149.99,
-            stock: 18
-          }
+          { sku: 'MSJ-S-RED', size: 'S', color: 'Red', price: 299, stock: 5 },
+          { sku: 'MSJ-M-RED', size: 'M', color: 'Red', price: 299, stock: 8 },
+          { sku: 'MSJ-L-RED', size: 'L', color: 'Red', price: 299, stock: 6 },
+          { sku: 'MSJ-M-BLU', size: 'M', color: 'Blue', price: 299, stock: 7 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensJackets.id }
         ]
       }
     }
-  })
+  });
 
-  // Peak Beanie (Men's Accessories)
-  const peakBeanie = await prisma.product.create({
+  const mensVest = await prisma.product.create({
     data: {
-      name: 'Peak Logo Beanie',
-      slug: 'peak-logo-beanie',
-      description: 'Warm merino wool beanie with embroidered PEAK logo. Essential for Canadian winters.',
-      basePrice: 29.99,
-      images: [
-        '/images/beanie-forest.jpg',
-        '/images/beanie-lifestyle.jpg'
-      ],
-      categoryId: mensAccessories.id,
+      name: 'Men\'s Insulated Vest',
+      slug: 'mens-insulated-vest',
+      description: 'Versatile insulated vest perfect for layering.',
+      shortDescription: 'Versatile insulated vest for layering',
+      images: ['/images/products/mens-vest-1.jpg'],
+      basePrice: 159,
+      material: 'Synthetic Insulation',
       variants: {
         create: [
-          {
-            sku: 'BEANIE-M-OS-FOREST',
-            size: 'One Size',
-            color: 'Forest Green',
-            price: 29.99,
-            stock: 50
-          },
-          {
-            sku: 'BEANIE-M-OS-STONE',
-            size: 'One Size',
-            color: 'Stone Grey',
-            price: 29.99,
-            stock: 45
-          },
-          {
-            sku: 'BEANIE-M-OS-BLACK',
-            size: 'One Size',
-            color: 'Black',
-            price: 29.99,
-            stock: 60
-          }
+          { sku: 'MV-S-GRY', size: 'S', color: 'Grey', price: 159, stock: 6 },
+          { sku: 'MV-M-GRY', size: 'M', color: 'Grey', price: 159, stock: 10 },
+          { sku: 'MV-L-GRY', size: 'L', color: 'Grey', price: 159, stock: 8 },
+          { sku: 'MV-M-BLK', size: 'M', color: 'Black', price: 159, stock: 9 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensJackets.id }
         ]
       }
     }
-  })
+  });
 
-  // 5. Women's products
-  
-  // Storm Shell Jacket (Women's)
-  const stormShell = await prisma.product.create({
+  // 2. Men's Tops & Base Layers (2 products)
+  const mensBaseLayer = await prisma.product.create({
     data: {
-      name: 'Storm Shell Jacket',
-      slug: 'storm-shell-jacket-womens',
-      description: 'Lightweight waterproof shell jacket for Pacific Coast weather. Perfect for Vancouver\'s rainy seasons.',
-      basePrice: 189.99,
-      images: [
-        '/images/storm-shell-glacier.jpg',
-        '/images/storm-shell-detail.jpg'
-      ],
+      name: 'Men\'s Merino Base Layer',
+      slug: 'mens-merino-base-layer',
+      description: 'Premium merino wool base layer with natural odor resistance.',
+      shortDescription: 'Merino wool base layer with odor resistance',
+      images: ['/images/products/mens-baselayer-1.jpg'],
+      basePrice: 89,
+      material: '100% Merino Wool',
+      variants: {
+        create: [
+          { sku: 'MBL-S-GRY', size: 'S', color: 'Grey', price: 89, stock: 8 },
+          { sku: 'MBL-M-GRY', size: 'M', color: 'Grey', price: 89, stock: 12 },
+          { sku: 'MBL-L-GRY', size: 'L', color: 'Grey', price: 89, stock: 10 },
+          { sku: 'MBL-XL-GRY', size: 'XL', color: 'Grey', price: 89, stock: 6 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensTops.id }
+        ]
+      }
+    }
+  });
+
+  const mensHoodie = await prisma.product.create({
+    data: {
+      name: 'Men\'s Tech Hoodie',
+      slug: 'mens-tech-hoodie',
+      description: 'Technical hoodie with moisture-wicking fabric.',
+      shortDescription: 'Technical hoodie with moisture-wicking',
+      images: ['/images/products/mens-hoodie-1.jpg'],
+      basePrice: 129,
+      material: 'Polyester Blend',
       featured: true,
-      categoryId: womensJackets.id,
       variants: {
         create: [
-          {
-            sku: 'STORM-W-XS-GLACIER',
-            size: 'XS',
-            color: 'Glacier Blue',
-            price: 189.99,
-            stock: 12
-          },
-          {
-            sku: 'STORM-W-S-GLACIER',
-            size: 'S',
-            color: 'Glacier Blue',
-            price: 189.99,
-            stock: 20
-          },
-          {
-            sku: 'STORM-W-M-GLACIER',
-            size: 'M',
-            color: 'Glacier Blue',
-            price: 189.99,
-            stock: 18
-          },
-          {
-            sku: 'STORM-W-L-GLACIER',
-            size: 'L',
-            color: 'Glacier Blue',
-            price: 189.99,
-            stock: 15
-          },
-          {
-            sku: 'STORM-W-M-STONE',
-            size: 'M',
-            color: 'Stone Grey',
-            price: 189.99,
-            stock: 16
-          }
+          { sku: 'MH-S-GRN', size: 'S', color: 'Forest Green', price: 129, stock: 7 },
+          { sku: 'MH-M-GRN', size: 'M', color: 'Forest Green', price: 129, stock: 11 },
+          { sku: 'MH-L-GRN', size: 'L', color: 'Forest Green', price: 129, stock: 9 },
+          { sku: 'MH-M-BLK', size: 'M', color: 'Black', price: 129, stock: 8 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensTops.id }
         ]
       }
     }
-  })
+  });
 
-  // Flex Hiking Pants (Women's)
-  const flexPants = await prisma.product.create({
+  // 3. Men's Bottoms (2 products)
+  const mensHikingPants = await prisma.product.create({
     data: {
-      name: 'Flex Hiking Pants',
-      slug: 'flex-hiking-pants-womens',
-      description: 'Stretchy, comfortable hiking pants designed for women. 4-way stretch fabric for ultimate mobility.',
-      basePrice: 129.99,
-      images: [
-        '/images/flex-pants-stone.jpg',
-        '/images/flex-pants-action.jpg'
-      ],
-      categoryId: womensPants.id,
+      name: 'Men\'s Hiking Pants',
+      slug: 'mens-hiking-pants',
+      description: 'Durable hiking pants with UPF 50+ sun protection.',
+      shortDescription: 'Durable hiking pants with sun protection',
+      images: ['/images/products/mens-pants-1.jpg'],
+      basePrice: 119,
+      material: 'Ripstop Polyester',
       variants: {
         create: [
-          {
-            sku: 'FLEX-W-XS-STONE',
-            size: 'XS',
-            color: 'Stone Grey',
-            price: 129.99,
-            stock: 14
-          },
-          {
-            sku: 'FLEX-W-S-STONE',
-            size: 'S',
-            color: 'Stone Grey',
-            price: 129.99,
-            stock: 22
-          },
-          {
-            sku: 'FLEX-W-M-STONE',
-            size: 'M',
-            color: 'Stone Grey',
-            price: 129.99,
-            stock: 25
-          },
-          {
-            sku: 'FLEX-W-L-STONE',
-            size: 'L',
-            color: 'Stone Grey',
-            price: 129.99,
-            stock: 20
-          },
-          {
-            sku: 'FLEX-W-M-BLACK',
-            size: 'M',
-            color: 'Black',
-            price: 129.99,
-            stock: 18
-          }
+          { sku: 'MHP-30-KHK', size: '30', color: 'Khaki', price: 119, stock: 6 },
+          { sku: 'MHP-32-KHK', size: '32', color: 'Khaki', price: 119, stock: 10 },
+          { sku: 'MHP-34-KHK', size: '34', color: 'Khaki', price: 119, stock: 12 },
+          { sku: 'MHP-36-KHK', size: '36', color: 'Khaki', price: 119, stock: 8 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensBottoms.id }
         ]
       }
     }
-  })
+  });
 
-  // 6. Unisex Gear 
-  
-  // Summit Backpack
-  const summitBackpack = await prisma.product.create({
+  const mensShorts = await prisma.product.create({
     data: {
-      name: 'Summit Hiking Backpack',
-      slug: 'summit-hiking-backpack',
-      description: '40L hiking backpack with hydration system compatibility. Designed for multi-day Canadian backcountry adventures.',
-      basePrice: 159.99,
-      images: [
-        '/images/summit-backpack-forest.jpg',
-        '/images/summit-backpack-features.jpg'
-      ],
+      name: 'Men\'s Trail Shorts',
+      slug: 'mens-trail-shorts',
+      description: 'Lightweight trail shorts with built-in liner.',
+      shortDescription: 'Lightweight trail shorts with liner',
+      images: ['/images/products/mens-shorts-1.jpg'],
+      basePrice: 69,
+      material: 'Quick-Dry Nylon',
+      variants: {
+        create: [
+          { sku: 'MTS-S-BLK', size: 'S', color: 'Black', price: 69, stock: 8 },
+          { sku: 'MTS-M-BLK', size: 'M', color: 'Black', price: 69, stock: 12 },
+          { sku: 'MTS-L-BLK', size: 'L', color: 'Black', price: 69, stock: 10 },
+          { sku: 'MTS-M-NVY', size: 'M', color: 'Navy', price: 69, stock: 9 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensBottoms.id }
+        ]
+      }
+    }
+  });
+
+  // 4. Women's Jackets & Vests (2 products)
+  const womensDownJacket = await prisma.product.create({
+    data: {
+      name: 'Women\'s Alpine Down Jacket',
+      slug: 'womens-alpine-down-jacket',
+      description: 'Women\'s cut down jacket with 700-fill power insulation.',
+      shortDescription: 'Women\'s down jacket with 700-fill insulation',
+      images: ['/images/products/womens-down-jacket-1.jpg'],
+      basePrice: 329,
+      material: 'Ripstop Nylon, 700-Fill Down',
       featured: true,
-      categoryId: gear.id,
       variants: {
         create: [
-          {
-            sku: 'SUMMIT-U-OS-FOREST',
-            size: 'One Size',
-            color: 'Forest Green',
-            price: 159.99,
-            stock: 25
-          },
-          {
-            sku: 'SUMMIT-U-OS-STONE',
-            size: 'One Size',
-            color: 'Stone Grey',
-            price: 159.99,
-            stock: 20
-          },
-          {
-            sku: 'SUMMIT-U-OS-BLACK',
-            size: 'One Size',
-            color: 'Black',
-            price: 159.99,
-            stock: 30
-          }
+          { sku: 'WDJ-XS-PNK', size: 'XS', color: 'Pink', price: 329, stock: 4 },
+          { sku: 'WDJ-S-PNK', size: 'S', color: 'Pink', price: 329, stock: 8 },
+          { sku: 'WDJ-M-PNK', size: 'M', color: 'Pink', price: 329, stock: 10 },
+          { sku: 'WDJ-L-PNK', size: 'L', color: 'Pink', price: 329, stock: 6 },
+          { sku: 'WDJ-S-BLK', size: 'S', color: 'Black', price: 329, stock: 7 },
+          { sku: 'WDJ-M-BLK', size: 'M', color: 'Black', price: 329, stock: 9 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: womensCategory.id },
+          { categoryId: womensJackets.id }
         ]
       }
     }
-  })
+  });
 
-  // Insulated Water Bottle
-  const waterBottle = await prisma.product.create({
+  const womensFleece = await prisma.product.create({
     data: {
-      name: 'Insulated Water Bottle',
-      slug: 'insulated-water-bottle',
-      description: 'Double-wall stainless steel water bottle. Keeps drinks cold for 24h, hot for 12h. Perfect for all-season adventures.',
-      basePrice: 34.99,
-      images: [
-        '/images/water-bottle-steel.jpg',
-        '/images/water-bottle-lifestyle.jpg'
-      ],
-      categoryId: gear.id,
+      name: 'Women\'s Fleece Jacket',
+      slug: 'womens-fleece-jacket',
+      description: 'Cozy fleece jacket perfect for layering.',
+      shortDescription: 'Cozy fleece jacket for layering',
+      images: ['/images/products/womens-fleece-1.jpg'],
+      basePrice: 89,
+      material: 'Recycled Polyester Fleece',
       variants: {
         create: [
-          {
-            sku: 'BOTTLE-U-500-STEEL',
-            size: '500ml',
-            color: 'Stainless Steel',
-            price: 34.99,
-            stock: 40
-          },
-          {
-            sku: 'BOTTLE-U-750-STEEL',
-            size: '750ml',
-            color: 'Stainless Steel',
-            price: 39.99,
-            stock: 35
-          },
-          {
-            sku: 'BOTTLE-U-500-BLACK',
-            size: '500ml',
-            color: 'Black',
-            price: 34.99,
-            stock: 38
-          },
-          {
-            sku: 'BOTTLE-U-750-BLACK',
-            size: '750ml',
-            color: 'Black',
-            price: 39.99,
-            stock: 32
-          }
+          { sku: 'WFJ-XS-PUR', size: 'XS', color: 'Purple', price: 89, stock: 5 },
+          { sku: 'WFJ-S-PUR', size: 'S', color: 'Purple', price: 89, stock: 9 },
+          { sku: 'WFJ-M-PUR', size: 'M', color: 'Purple', price: 89, stock: 11 },
+          { sku: 'WFJ-L-PUR', size: 'L', color: 'Purple', price: 89, stock: 7 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: womensCategory.id },
+          { categoryId: womensJackets.id }
         ]
       }
     }
-  })
+  });
 
-  console.log('complete')
+  // 5. Women's Tops & Base Layers (2 products)
+  const womensBaseLayer = await prisma.product.create({
+    data: {
+      name: 'Women\'s Merino Base Layer',
+      slug: 'womens-merino-base-layer',
+      description: 'Women\'s merino wool base layer with feminine fit.',
+      shortDescription: 'Women\'s merino wool base layer',
+      images: ['/images/products/womens-baselayer-1.jpg'],
+      basePrice: 89,
+      material: '100% Merino Wool',
+      variants: {
+        create: [
+          { sku: 'WBL-XS-GRY', size: 'XS', color: 'Grey', price: 89, stock: 6 },
+          { sku: 'WBL-S-GRY', size: 'S', color: 'Grey', price: 89, stock: 10 },
+          { sku: 'WBL-M-GRY', size: 'M', color: 'Grey', price: 89, stock: 12 },
+          { sku: 'WBL-L-GRY', size: 'L', color: 'Grey', price: 89, stock: 8 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: womensCategory.id },
+          { categoryId: womensTops.id }
+        ]
+      }
+    }
+  });
+
+  // 6. Hiking Boots (2 products)
+  const hikingBootsProduct = await prisma.product.create({
+    data: {
+      name: 'Alpine Hiking Boots',
+      slug: 'alpine-hiking-boots',
+      description: 'Waterproof hiking boots with Gore-Tex lining.',
+      shortDescription: 'Waterproof hiking boots with Gore-Tex',
+      images: ['/images/products/hiking-boots-1.jpg'],
+      basePrice: 299,
+      material: 'Gore-Tex, Nubuck Leather',
+      featured: true,
+      variants: {
+        create: [
+          { sku: 'AHB-7-BRN', size: '7', color: 'Brown', price: 299, stock: 8 },
+          { sku: 'AHB-8-BRN', size: '8', color: 'Brown', price: 299, stock: 12 },
+          { sku: 'AHB-9-BRN', size: '9', color: 'Brown', price: 299, stock: 15 },
+          { sku: 'AHB-10-BRN', size: '10', color: 'Brown', price: 299, stock: 10 },
+          { sku: 'AHB-8-BLK', size: '8', color: 'Black', price: 299, stock: 9 },
+          { sku: 'AHB-9-BLK', size: '9', color: 'Black', price: 299, stock: 11 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: footwearCategory.id },
+          { categoryId: hikingBoots.id }
+        ]
+      }
+    }
+  });
+
+  // 7. Trail Shoes (2 products)
+  const trailShoesProduct = await prisma.product.create({
+    data: {
+      name: 'Trail Running Shoes',
+      slug: 'trail-running-shoes',
+      description: 'Lightweight trail running shoes with aggressive tread.',
+      shortDescription: 'Lightweight trail running shoes',
+      images: ['/images/products/trail-shoes-1.jpg'],
+      basePrice: 149,
+      material: 'Mesh, Synthetic Rubber',
+      variants: {
+        create: [
+          { sku: 'TRS-7-GRY', size: '7', color: 'Grey/Orange', price: 149, stock: 6 },
+          { sku: 'TRS-8-GRY', size: '8', color: 'Grey/Orange', price: 149, stock: 10 },
+          { sku: 'TRS-9-GRY', size: '9', color: 'Grey/Orange', price: 149, stock: 12 },
+          { sku: 'TRS-10-GRY', size: '10', color: 'Grey/Orange', price: 149, stock: 8 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: footwearCategory.id },
+          { categoryId: trailShoes.id }
+        ]
+      }
+    }
+  });
+
+  // 8. Backpacks (2 products)
+  const backpackProduct = await prisma.product.create({
+    data: {
+      name: 'Alpine Backpack 45L',
+      slug: 'alpine-backpack-45l',
+      description: 'Multi-day hiking backpack with 45L capacity.',
+      shortDescription: '45L hiking backpack for multi-day trips',
+      images: ['/images/products/backpack-45l-1.jpg'],
+      basePrice: 219,
+      material: 'Ripstop Nylon, Aluminum Frame',
+      variants: {
+        create: [
+          { sku: 'AB45-S-GRN', size: 'S', color: 'Forest Green', price: 219, stock: 5 },
+          { sku: 'AB45-M-GRN', size: 'M', color: 'Forest Green', price: 219, stock: 8 },
+          { sku: 'AB45-L-GRN', size: 'L', color: 'Forest Green', price: 219, stock: 6 },
+          { sku: 'AB45-M-BLU', size: 'M', color: 'Navy Blue', price: 219, stock: 7 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: bagsCategory.id },
+          { categoryId: backpacks.id }
+        ]
+      }
+    }
+  });
+
+  // 9. Daypacks (2 products)
+  const daypackProduct = await prisma.product.create({
+    data: {
+      name: 'Summit Daypack 25L',
+      slug: 'summit-daypack-25l',
+      description: 'Versatile daypack perfect for hiking and travel.',
+      shortDescription: '25L daypack for hiking and travel',
+      images: ['/images/products/daypack-25l-1.jpg'],
+      basePrice: 89,
+      material: 'Recycled Polyester',
+      variants: {
+        create: [
+          { sku: 'SD25-OS-BLK', size: 'One Size', color: 'Black', price: 89, stock: 10 },
+          { sku: 'SD25-OS-GRY', size: 'One Size', color: 'Grey', price: 89, stock: 8 },
+          { sku: 'SD25-OS-BLU', size: 'One Size', color: 'Navy Blue', price: 89, stock: 12 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: bagsCategory.id },
+          { categoryId: daypacks.id }
+        ]
+      }
+    }
+  });
+
+  // Sale category products (reuse existing products at discounted prices)
+  // Add Men's Down Jacket to Sale category (discounted version)
+  await prisma.productCategory.create({
+    data: {
+      productId: mensDownJacket.id,
+      categoryId: saleCategory.id
+    }
+  });
+
+  // Add Women's Fleece to Sale category
+  await prisma.productCategory.create({
+    data: {
+      productId: womensFleece.id,
+      categoryId: saleCategory.id
+    }
+  });
+
+  // Add Trail Shoes to Sale category
+  await prisma.productCategory.create({
+    data: {
+      productId: trailShoesProduct.id,
+      categoryId: saleCategory.id
+    }
+  });
+
+  console.log('Sample products created successfully!');
+  console.log(`Created ${await prisma.category.count()} categories`);
+  console.log(`Created ${await prisma.product.count()} products`);
+  console.log(`Created ${await prisma.productVariant.count()} product variants`);
+  console.log('Admin user: admin@outdoor.com / admin123');
 }
 
 main()
   .catch((e) => {
-    console.error('seed error', e)
-    process.exit(1)
+    console.error('Error creating seed data:', e);
+    process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect()
-  })
+    await prisma.$disconnect();
+  });

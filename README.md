@@ -61,3 +61,43 @@ A fully functional e-commerce platform built from scratch, targeting the Canadia
     ```bash
     npm run dev
     ```
+
+### Folder Structure
+```text
+e-commerce/
+├── prisma/             # DB
+├── src/
+│   ├── app/            # Next.js App Router
+│   │   ├── (auth)/
+│   │   ├── (public)/
+│   │   └── api/        # API Routes
+│   ├── components/     # Reusable components
+│   │   └── ui/         # Shadcn UI
+│   ├── pages/
+│   ├── lib/            # Utilities & Configs   
+│   ├── services/       # Business logics & Data access
+│   └── types/
+└── public/             # Static files
+    └── images/
+```
+
+## Service
+
+### Site Categories
+```text
+├── MEN'S
+│   ├── Jackets & Vests
+│   ├── Tops & Base Layers  
+│   └── Bottoms
+├── WOMEN'S
+│   ├── Jackets & Vests
+│   ├── Tops & Base Layers
+│   └── Bottoms
+├── FOOTWEAR
+│   ├── Hiking Boots
+│   └── Trail Shoes
+├── BAGS
+│   ├── Backpacks
+│   └── Daypacks
+└── SALE
+```
