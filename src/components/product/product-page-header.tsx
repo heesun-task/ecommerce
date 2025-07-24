@@ -1,5 +1,6 @@
+import { BreadcrumbItemType } from "@/types/category.types";
 import Container from "../layouts/container";
-import { BreadcrumbItemType, ProductBreadcrumbs } from "./product-breadcrumbs";
+import { ProductBreadcrumbs } from "./product-breadcrumbs";
 
 type ProductPageHeaderProps = {
   title: string;

@@ -34,10 +34,9 @@ const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
 const navbarItems = [
   { href: "/womens", children: "Women" },
   { href: "/mens", children: "Men" },
+  { href: "/footwear", children: "Footwear" },
   { href: "/bags", children: "Bags" },
-  { href: "/accessories", children: "Accessories" },
-  { href: "/whats-new", children: "What's New" },
-  { href: "/summer-scores", children: "Summer Scores" },
+  { href: "/sale", children: "SALE" },
 ];
 
 export const Navbar = () => {

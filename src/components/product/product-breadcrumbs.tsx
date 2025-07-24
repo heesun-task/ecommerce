@@ -8,13 +8,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { BreadcrumbItemType } from "@/types/category.types"
 
-export interface BreadcrumbItemType {
-  label: string
-  href?: string
-}
 
-interface ProductBreadcrumbsProps {
+type ProductBreadcrumbsProps = {
   items: BreadcrumbItemType[]
   className?: string
 }
