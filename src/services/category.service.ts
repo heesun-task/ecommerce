@@ -1,8 +1,15 @@
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { prisma } from "@/lib/prisma";
-import { CategoryWithChildren } from "@/types/category.types";
+import {
+  BreadcrumbItemType,
+  CategoryWithChildren,
+} from "@/types/category.types";
+import { Category } from "@prisma/client";
 
 export class CategoryService {
-  static async getCategoryBySlug(slug: string): Promise<CategoryWithChildren | null> {
+  static async getCategoryBySlug(
+    slug: string
+  ): Promise<CategoryWithChildren | null> {
     try {
       const categories = await prisma.category.findUnique({
         where: { slug },
@@ -16,9 +23,27 @@ export class CategoryService {
       });
 
       return categories;
-    } catch (error) {console.error(`Error fetching category with slug ${slug}:`, error);
+    } catch (error) {
+      console.error(`Error fetching category with slug ${slug}:`, error);
       throw new Error("Failed to fetch category");
     }
+  }
 
+  static getCategoryBreadcrumbs(
+    category: CategoryWithChildren
+  ): BreadcrumbItemType[] {
+    const breadcrumbs = [];
+
+    const { parent } = category;
+
+    // add parent
+    if (parent) {
+      breadcrumbs.push({ label: parent.name, href: `/${parent.slug}` });
+    }
+
+    // add itself
+    breadcrumbs.push({ label: category.name});
+
+    return breadcrumbs;
   }
 }

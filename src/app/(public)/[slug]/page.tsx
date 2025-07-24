@@ -5,6 +5,7 @@ import ProductListingTemplate from "@/components/product/product-listing-templat
 import getFilteredProducts from "@/services/product.service";
 import { CategoryWithChildren, SearchParams } from "@/types/category.types";
 import { CategoryService } from "@/services/category.service";
+import ProductPageHeader from "@/components/product/product-page-header";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
@@ -16,13 +17,17 @@ export default async function CategoryPage({
   searchParams,
 }: CategoryPageProps) {
   const resolvedParams = await params;
-  console.log('params', resolvedParams);
+
+  // Fetch category data by slug including children and parent categories
   const categoryData = await CategoryService.getCategoryBySlug(resolvedParams.slug);
   console.log('categoryData', categoryData);
 
   if (!categoryData) {
     notFound();
   }
+
+  const breadcrumbs = CategoryService.getCategoryBreadcrumbs(categoryData);
+  console.log('breadcrumbs', breadcrumbs);
 
   // const { category, breadcrumbs } = categoryData;
 
@@ -33,7 +38,12 @@ export default async function CategoryPage({
 
   return (
     <div>
-      test
+      <ProductPageHeader
+        title={categoryData.name}
+        description={categoryData.description}
+        image={categoryData.image || "/images/default-category-banner.png"}
+        breadcrumbs={breadcrumbs}
+      />
     </div>
     // <ProductListingTemplate
     //   title={category.name}

@@ -1,9 +1,9 @@
 import { Category, Prisma } from "@prisma/client";
 
 export interface BreadcrumbItemType {
-  label: string
-  href?: string
-};
+  label: string;
+  href?: string;
+}
 
 export type CategoryWithChildren = Prisma.CategoryGetPayload<{
   include: {
@@ -16,11 +16,11 @@ export type CategoryWithChildren = Prisma.CategoryGetPayload<{
 }>;
 
 export type SearchParams = Promise<{
-  sizes?: string;      // "S,M,L"
-  minPrice?: string;   // "50000"
-  maxPrice?: string;   // "200000"
-  sortBy?: string;     // "newest"
-  page?: string;       // "1"
+  sizes?: string; // "S,M,L"
+  minPrice?: string; // "50000"
+  maxPrice?: string; // "200000"
+  sortBy?: string; // "newest"
+  page?: string; // "1"
 }>;
 
 export type CategoryData = {

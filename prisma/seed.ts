@@ -73,7 +73,7 @@ async function main() {
       name: 'Women\'s',
       slug: 'womens',
       description: 'Women\'s outdoor clothing and gear',
-      image: '/images/categories/womens-hero.jpg'
+      image: '/images/categories/womens-hero.png'
     }
   });
 
@@ -140,7 +140,8 @@ async function main() {
       name: 'Jackets & Vests',
       slug: 'womens-jackets-vests',
       description: 'Women\'s outdoor jackets, shells, and vests',
-      parentId: womensCategory.id
+      parentId: womensCategory.id,
+      image: '/images/categories/womens-hero.png'
     }
   });
 

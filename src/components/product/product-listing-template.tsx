@@ -1,9 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { Category } from "@prisma/client";
-import ProductPageHeader from "./product-page-header";
 import {
-  BreadcrumbItemType,
   FilterState,
   Pagination,
   SortOption,
@@ -14,7 +12,6 @@ type ProductListingTemplateProps = {
   title: string;
   description: string;
   image: string;
-  breadcrumbs: BreadcrumbItemType[];
   allCategories: Category[];
   products?: ProductWithDetails[];
   categorySlug?: string;
@@ -25,7 +22,6 @@ const ProductListingTemplate = ({
   title,
   description,
   image,
-  breadcrumbs,
   products = [],
   allCategories,
   pagination,
@@ -75,12 +71,6 @@ const ProductListingTemplate = ({
 
   return (
     <div>
-      <ProductPageHeader
-        title={title}
-        description={description}
-        image={image}
-        breadcrumbs={breadcrumbs}
-      />
       {/* <FilterSort/> */}
       {/* <ProductGrid /> */}
     </div>
