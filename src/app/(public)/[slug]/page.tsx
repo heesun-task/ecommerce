@@ -50,7 +50,7 @@ export default async function CategoryPage({
       <ProductPageHeader
         title={categoryData.name}
         description={categoryData.description}
-        image={categoryData.image || "/images/default-category-banner.png"}
+        image={categoryData.image || "/images/default-category-banner.avif"}
         breadcrumbs={breadcrumbs}
       />
       <ProductGrid 

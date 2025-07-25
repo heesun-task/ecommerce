@@ -64,7 +64,7 @@ async function main() {
       name: 'Men\'s',
       slug: 'mens',
       description: 'Men\'s outdoor clothing and gear',
-      image: '/images/categories/mens-hero.jpg'
+      image: '/images/categories/mens-hero.png'
     }
   });
 
@@ -82,7 +82,7 @@ async function main() {
       name: 'Footwear',
       slug: 'footwear',
       description: 'Hiking boots, trail runners, and outdoor footwear',
-      image: '/images/categories/footwear-hero.jpg'
+      image: '/images/categories/shoes-hero.avif'
     }
   });
 
@@ -91,7 +91,7 @@ async function main() {
       name: 'Bags',
       slug: 'bags',
       description: 'Backpacks, daypacks, and outdoor accessories',
-      image: '/images/categories/bags-hero.jpg'
+      image: '/images/categories/bags-hero.avif'
     }
   });
 
@@ -100,7 +100,7 @@ async function main() {
       name: 'Sale',
       slug: 'sale',
       description: 'Discounted outdoor gear and clothing',
-      image: '/images/categories/sale-hero.jpg'
+      image: '/images/categories/sale-hero.avif'
     }
   });
 
@@ -141,7 +141,7 @@ async function main() {
       slug: 'womens-jackets-vests',
       description: 'Women\'s outdoor jackets, shells, and vests',
       parentId: womensCategory.id,
-      image: '/images/categories/womens-hero.png'
+      // image: '/images/categories/womens-hero.png'
     }
   });
 
@@ -212,7 +212,7 @@ async function main() {
       slug: 'mens-alpine-down-jacket',
       description: 'Lightweight down jacket with 800-fill power goose down insulation.',
       shortDescription: 'Lightweight down jacket with 800-fill insulation',
-      images: ['/images/products/mens-down-jacket-1.jpg'],
+      images: ['/images/products/mens-down-jacket-1.avif'],
       basePrice: 349,
       material: 'Ripstop Nylon, 800-Fill Goose Down',
       featured: true,
@@ -241,7 +241,7 @@ async function main() {
       slug: 'mens-storm-shell-jacket',
       description: 'Waterproof and breathable shell jacket for alpine conditions.',
       shortDescription: 'Waterproof shell jacket for alpine use',
-      images: ['/images/products/mens-shell-jacket-1.jpg'],
+      images: ['/images/products/mens-shell-jacket-1.avif'],
       basePrice: 299,
       material: 'Gore-Tex Pro',
       variants: {
@@ -267,7 +267,7 @@ async function main() {
       slug: 'mens-insulated-vest',
       description: 'Versatile insulated vest perfect for layering.',
       shortDescription: 'Versatile insulated vest for layering',
-      images: ['/images/products/mens-vest-1.jpg'],
+      images: ['/images/products/mens-vest-1.avif'],
       basePrice: 159,
       material: 'Synthetic Insulation',
       variants: {
@@ -294,7 +294,7 @@ async function main() {
       slug: 'mens-merino-base-layer',
       description: 'Premium merino wool base layer with natural odor resistance.',
       shortDescription: 'Merino wool base layer with odor resistance',
-      images: ['/images/products/mens-baselayer-1.jpg'],
+      images: ['/images/products/mens-baselayer-1.avif'],
       basePrice: 89,
       material: '100% Merino Wool',
       variants: {
@@ -320,7 +320,7 @@ async function main() {
       slug: 'mens-tech-hoodie',
       description: 'Technical hoodie with moisture-wicking fabric.',
       shortDescription: 'Technical hoodie with moisture-wicking',
-      images: ['/images/products/mens-hoodie-1.jpg'],
+      images: ['/images/products/mens-hoodie-1.avif'],
       basePrice: 129,
       material: 'Polyester Blend',
       featured: true,
@@ -348,7 +348,7 @@ async function main() {
       slug: 'mens-hiking-pants',
       description: 'Durable hiking pants with UPF 50+ sun protection.',
       shortDescription: 'Durable hiking pants with sun protection',
-      images: ['/images/products/mens-pants-1.jpg'],
+      images: ['/images/products/mens-pants-1.avif'],
       basePrice: 119,
       material: 'Ripstop Polyester',
       variants: {
@@ -374,7 +374,7 @@ async function main() {
       slug: 'mens-trail-shorts',
       description: 'Lightweight trail shorts with built-in liner.',
       shortDescription: 'Lightweight trail shorts with liner',
-      images: ['/images/products/mens-shorts-1.jpg'],
+      images: ['/images/products/mens-shorts-1.avif'],
       basePrice: 69,
       material: 'Quick-Dry Nylon',
       variants: {
@@ -401,7 +401,7 @@ async function main() {
       slug: 'womens-alpine-down-jacket',
       description: 'Women\'s cut down jacket with 700-fill power insulation.',
       shortDescription: 'Women\'s down jacket with 700-fill insulation',
-      images: ['/images/products/womens-down-jacket-1.jpg'],
+      images: ['/images/products/womens-down-jacket-1.avif'],
       basePrice: 329,
       material: 'Ripstop Nylon, 700-Fill Down',
       featured: true,
@@ -430,7 +430,7 @@ async function main() {
       slug: 'womens-fleece-jacket',
       description: 'Cozy fleece jacket perfect for layering.',
       shortDescription: 'Cozy fleece jacket for layering',
-      images: ['/images/products/womens-fleece-1.jpg'],
+      images: ['/images/products/womens-fleece-1.avif'],
       basePrice: 89,
       material: 'Recycled Polyester Fleece',
       variants: {
@@ -457,7 +457,7 @@ async function main() {
       slug: 'womens-merino-base-layer',
       description: 'Women\'s merino wool base layer with feminine fit.',
       shortDescription: 'Women\'s merino wool base layer',
-      images: ['/images/products/womens-baselayer-1.jpg'],
+      images: ['/images/products/womens-baselayer-1.avif'],
       basePrice: 89,
       material: '100% Merino Wool',
       variants: {
@@ -484,7 +484,7 @@ async function main() {
       slug: 'alpine-hiking-boots',
       description: 'Waterproof hiking boots with Gore-Tex lining.',
       shortDescription: 'Waterproof hiking boots with Gore-Tex',
-      images: ['/images/products/hiking-boots-1.jpg'],
+      images: ['/images/products/hiking-boots-1.avif'],
       basePrice: 299,
       material: 'Gore-Tex, Nubuck Leather',
       featured: true,
@@ -514,7 +514,7 @@ async function main() {
       slug: 'trail-running-shoes',
       description: 'Lightweight trail running shoes with aggressive tread.',
       shortDescription: 'Lightweight trail running shoes',
-      images: ['/images/products/trail-shoes-1.jpg'],
+      images: ['/images/products/trail-shoes-1.avif'],
       basePrice: 149,
       material: 'Mesh, Synthetic Rubber',
       variants: {
@@ -541,7 +541,7 @@ async function main() {
       slug: 'alpine-backpack-45l',
       description: 'Multi-day hiking backpack with 45L capacity.',
       shortDescription: '45L hiking backpack for multi-day trips',
-      images: ['/images/products/backpack-45l-1.jpg'],
+      images: ['/images/products/backpack-45l-1.avif'],
       basePrice: 219,
       material: 'Ripstop Nylon, Aluminum Frame',
       variants: {
@@ -568,7 +568,7 @@ async function main() {
       slug: 'summit-daypack-25l',
       description: 'Versatile daypack perfect for hiking and travel.',
       shortDescription: '25L daypack for hiking and travel',
-      images: ['/images/products/daypack-25l-1.jpg'],
+      images: ['/images/products/daypack-25l-1.avif', '/images/products/daypack-25l-2.avif'],
       basePrice: 89,
       material: 'Recycled Polyester',
       variants: {
@@ -584,6 +584,284 @@ async function main() {
           { categoryId: daypacks.id }
         ]
       }
+    }
+  });
+
+  // ==================== Additional Products ====================
+
+  // 10. Women's Bottoms (2 products)
+  const womensHikingPants = await prisma.product.create({
+    data: {
+      name: 'Women\'s Trail Pants',
+      slug: 'womens-trail-pants',
+      description: 'Comfortable hiking pants designed for women with articulated knees.',
+      shortDescription: 'Women\'s hiking pants with articulated knees',
+      images: ['/images/products/womens-pants-1.avif'],
+      basePrice: 109,
+      material: 'Stretch Ripstop',
+      variants: {
+        create: [
+          { sku: 'WTP-XS-BLK', size: 'XS', color: 'Black', price: 109, stock: 6 },
+          { sku: 'WTP-S-BLK', size: 'S', color: 'Black', price: 109, stock: 10 },
+          { sku: 'WTP-M-BLK', size: 'M', color: 'Black', price: 109, stock: 12 },
+          { sku: 'WTP-L-BLK', size: 'L', color: 'Black', price: 109, stock: 8 },
+          { sku: 'WTP-S-KHK', size: 'S', color: 'Khaki', price: 109, stock: 7 },
+          { sku: 'WTP-M-KHK', size: 'M', color: 'Khaki', price: 109, stock: 9 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: womensCategory.id },
+          { categoryId: womensBottoms.id }
+        ]
+      }
+    }
+  });
+
+  // 11. Additional Men's Jacket (using multiple images)
+  const mensHeavyDownJacket = await prisma.product.create({
+    data: {
+      name: 'Men\'s Expedition Down Jacket',
+      slug: 'mens-expedition-down-jacket',
+      description: 'Ultra-warm expedition jacket with 900-fill down for extreme conditions.',
+      shortDescription: 'Ultra-warm expedition jacket with 900-fill down',
+      images: ['/images/products/mens-down-jacket-1.avif', '/images/products/mens-down-jacket-2.avif'],
+      basePrice: 449,
+      material: 'DWR Ripstop, 900-Fill Goose Down',
+      featured: true,
+      variants: {
+        create: [
+          { sku: 'MEDJ-S-BLK', size: 'S', color: 'Black', price: 449, stock: 4 },
+          { sku: 'MEDJ-M-BLK', size: 'M', color: 'Black', price: 449, stock: 8 },
+          { sku: 'MEDJ-L-BLK', size: 'L', color: 'Black', price: 449, stock: 6 },
+          { sku: 'MEDJ-XL-BLK', size: 'XL', color: 'Black', price: 449, stock: 3 },
+          { sku: 'MEDJ-M-RED', size: 'M', color: 'Red', price: 449, stock: 5 },
+          { sku: 'MEDJ-L-RED', size: 'L', color: 'Red', price: 449, stock: 4 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensJackets.id }
+        ]
+      }
+    }
+  });
+
+  // 12. Women's Additional Jacket 
+  const womensShellJacket = await prisma.product.create({
+    data: {
+      name: 'Women\'s Technical Shell',
+      slug: 'womens-technical-shell',
+      description: 'Lightweight, packable shell jacket for women.',
+      shortDescription: 'Lightweight packable shell jacket',
+      images: ['/images/products/womens-jackets-1.avif'],
+      basePrice: 219,
+      material: 'Gore-Tex Paclite',
+      variants: {
+        create: [
+          { sku: 'WTS-XS-BLU', size: 'XS', color: 'Blue', price: 219, stock: 5 },
+          { sku: 'WTS-S-BLU', size: 'S', color: 'Blue', price: 219, stock: 8 },
+          { sku: 'WTS-M-BLU', size: 'M', color: 'Blue', price: 219, stock: 10 },
+          { sku: 'WTS-L-BLU', size: 'L', color: 'Blue', price: 219, stock: 7 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: womensCategory.id },
+          { categoryId: womensJackets.id }
+        ]
+      }
+    }
+  });
+
+  // 13. More Backpacks (different sizes)
+  const backpack30L = await prisma.product.create({
+    data: {
+      name: 'Alpine Backpack 30L',
+      slug: 'alpine-backpack-30l',
+      description: 'Versatile 30L backpack perfect for day hikes and weekend trips.',
+      shortDescription: '30L backpack for day hikes',
+      images: ['/images/products/backpack-45l-2.avif', '/images/products/backpack-45l-3.avif'],
+      basePrice: 179,
+      material: 'Ripstop Nylon, Internal Frame',
+      variants: {
+        create: [
+          { sku: 'AB30-S-GRN', size: 'S', color: 'Forest Green', price: 179, stock: 8 },
+          { sku: 'AB30-M-GRN', size: 'M', color: 'Forest Green', price: 179, stock: 12 },
+          { sku: 'AB30-L-GRN', size: 'L', color: 'Forest Green', price: 179, stock: 9 },
+          { sku: 'AB30-M-GRY', size: 'M', color: 'Grey', price: 179, stock: 10 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: bagsCategory.id },
+          { categoryId: backpacks.id }
+        ]
+      }
+    }
+  });
+
+  // 14. Larger Travel Backpack
+  const backpack65L = await prisma.product.create({
+    data: {
+      name: 'Expedition Backpack 65L',
+      slug: 'expedition-backpack-65l',
+      description: 'Large capacity backpack for extended expeditions and multi-week trips.',
+      shortDescription: '65L backpack for extended expeditions',
+      images: ['/images/products/backpack-25l-5.avif'],
+      basePrice: 289,
+      material: 'Heavy-Duty Nylon, External Frame',
+      variants: {
+        create: [
+          { sku: 'EB65-M-BLK', size: 'M', color: 'Black', price: 289, stock: 4 },
+          { sku: 'EB65-L-BLK', size: 'L', color: 'Black', price: 289, stock: 6 },
+          { sku: 'EB65-XL-BLK', size: 'XL', color: 'Black', price: 289, stock: 3 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: bagsCategory.id },
+          { categoryId: backpacks.id }
+        ]
+      }
+    }
+  });
+
+  // 15. More Daypacks
+  const compactDaypack = await prisma.product.create({
+    data: {
+      name: 'Compact Daypack 15L',
+      slug: 'compact-daypack-15l',
+      description: 'Ultra-light daypack that packs down small for travel.',
+      shortDescription: 'Ultra-light packable 15L daypack',
+      images: ['/images/products/daypack-25l-3.avif', '/images/products/daypack-25l-4.avif'],
+      basePrice: 59,
+      material: 'Ultralight Nylon',
+      variants: {
+        create: [
+          { sku: 'CD15-OS-BLK', size: 'One Size', color: 'Black', price: 59, stock: 15 },
+          { sku: 'CD15-OS-GRY', size: 'One Size', color: 'Grey', price: 59, stock: 12 },
+          { sku: 'CD15-OS-BLU', size: 'One Size', color: 'Blue', price: 59, stock: 18 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: bagsCategory.id },
+          { categoryId: daypacks.id }
+        ]
+      }
+    }
+  });
+
+  // 16. Additional Hiking Shoes
+  const approachShoes = await prisma.product.create({
+    data: {
+      name: 'Approach Shoes',
+      slug: 'approach-shoes',
+      description: 'Technical approach shoes for scrambling and light climbing.',
+      shortDescription: 'Technical approach shoes for scrambling',
+      images: ['/images/products/hiking-shoes-1.avif'],
+      basePrice: 169,
+      material: 'Suede, Climbing Rubber',
+      variants: {
+        create: [
+          { sku: 'AS-7-GRY', size: '7', color: 'Grey', price: 169, stock: 6 },
+          { sku: 'AS-8-GRY', size: '8', color: 'Grey', price: 169, stock: 8 },
+          { sku: 'AS-9-GRY', size: '9', color: 'Grey', price: 169, stock: 10 },
+          { sku: 'AS-10-GRY', size: '10', color: 'Grey', price: 169, stock: 7 },
+          { sku: 'AS-8-BLK', size: '8', color: 'Black', price: 169, stock: 9 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: footwearCategory.id },
+          { categoryId: trailShoes.id }
+        ]
+      }
+    }
+  });
+
+  // 17. Women's Down Jacket (multiple images)
+  const womensLightDownJacket = await prisma.product.create({
+    data: {
+      name: 'Women\'s Ultralight Down Jacket',
+      slug: 'womens-ultralight-down-jacket',
+      description: 'Packable ultralight down jacket perfect for layering.',
+      shortDescription: 'Packable ultralight down jacket',
+      images: ['/images/products/womens-down-jacket-1.avif', '/images/products/womens-down-jacket-2.avif'],
+      basePrice: 249,
+      material: 'Ultralight Ripstop, 800-Fill Down',
+      featured: true,
+      variants: {
+        create: [
+          { sku: 'WUDJ-XS-PNK', size: 'XS', color: 'Pink', price: 249, stock: 6 },
+          { sku: 'WUDJ-S-PNK', size: 'S', color: 'Pink', price: 249, stock: 10 },
+          { sku: 'WUDJ-M-PNK', size: 'M', color: 'Pink', price: 249, stock: 12 },
+          { sku: 'WUDJ-L-PNK', size: 'L', color: 'Pink', price: 249, stock: 8 },
+          { sku: 'WUDJ-S-BLU', size: 'S', color: 'Blue', price: 249, stock: 9 },
+          { sku: 'WUDJ-M-BLU', size: 'M', color: 'Blue', price: 249, stock: 11 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: womensCategory.id },
+          { categoryId: womensJackets.id }
+        ]
+      }
+    }
+  });
+
+  // 18. Trail Running Shoes (multiple images)
+  const trailRunners = await prisma.product.create({
+    data: {
+      name: 'Performance Trail Runners',
+      slug: 'performance-trail-runners',
+      description: 'High-performance trail running shoes with superior grip.',
+      shortDescription: 'High-performance trail running shoes',
+      images: ['/images/products/trail-shoes-1.jpg', '/images/products/trail-shoes-2.avif'],
+      basePrice: 179,
+      material: 'Mesh Upper, Vibram Sole',
+      variants: {
+        create: [
+          { sku: 'PTR-7-ORG', size: '7', color: 'Orange/Black', price: 179, stock: 5 },
+          { sku: 'PTR-8-ORG', size: '8', color: 'Orange/Black', price: 179, stock: 8 },
+          { sku: 'PTR-9-ORG', size: '9', color: 'Orange/Black', price: 179, stock: 12 },
+          { sku: 'PTR-10-ORG', size: '10', color: 'Orange/Black', price: 179, stock: 9 },
+          { sku: 'PTR-8-BLU', size: '8', color: 'Blue/Grey', price: 179, stock: 7 },
+          { sku: 'PTR-9-BLU', size: '9', color: 'Blue/Grey', price: 179, stock: 10 }
+        ]
+      },
+      categories: {
+        create: [
+          { categoryId: footwearCategory.id },
+          { categoryId: trailShoes.id }
+        ]
+      }
+    }
+  });
+
+  // ==================== Update Sale Category with More Products ====================
+
+  // Add more products to Sale category
+  await prisma.productCategory.create({
+    data: {
+      productId: compactDaypack.id,
+      categoryId: saleCategory.id
+    }
+  });
+
+  await prisma.productCategory.create({
+    data: {
+      productId: mensHeavyDownJacket.id,
+      categoryId: saleCategory.id
+    }
+  });
+
+  await prisma.productCategory.create({
+    data: {
+      productId: womensHikingPants.id,
+      categoryId: saleCategory.id
     }
   });
 
