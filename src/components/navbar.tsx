@@ -14,16 +14,19 @@ interface NavbarItemProps {
   href: string;
   children: React.ReactNode;
   isActive?: boolean;
+  defaultColor?: string;
 }
 
-const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
+const NavbarItem = ({ href, children, isActive, defaultColor }: NavbarItemProps) => {
   return (
     <Button
       asChild
       variant="ghost"
       className={cn(
-        "bg-transparent hover:bg-transparent hover:text-peak-forest border-transparent px-2 text-sm relative",
-        isActive && "text-peak-forest hover:text-peak-forest",
+        "relative bg-transparent hover:bg-transparent border-transparent px-2 text-sm",
+        "after:absolute after:bottom-0 after:left-2 after:h-[3px] after:bg-current after:transition-all after:w-0 hover:after:w-6",
+        isActive && "text-peak-forest",
+        defaultColor ? `text-${defaultColor} hover:text-${defaultColor}` : "hover:text-peak-forest",
       )}
     >
       <Link href={href}>{children}</Link>
@@ -36,7 +39,7 @@ const navbarItems = [
   { href: "/mens", children: "Men" },
   { href: "/footwear", children: "Footwear" },
   { href: "/bags", children: "Bags" },
-  { href: "/sale", children: "SALE" },
+  { href: "/sale", children: "SALE", color: "peak-maple" },
 ];
 
 export const Navbar = () => {
@@ -46,7 +49,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 140);
+      setIsSticky(window.scrollY > 70);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -57,11 +60,11 @@ export const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed z-10 h-[70px] flex justify-between items-center font-medium bg-white p-2",
-        "transition-all duration-200 top-0 left-1/2 -translate-x-1/2",
+        "fixed z-100 h-[70px] flex justify-between items-center font-medium bg-white p-2",
+        "transition-all duration-200 top-0 left-1/2 -translate-x-1/2 max-w-[96rem]",
         isSticky
-          ? "w-[calc(100%-5rem)]"
-          : "w-full"
+        ? "w-full"
+        : "w-full lg:w-[calc(100%-10rem)]"
       )}
     >
       <Logo />
@@ -73,6 +76,7 @@ export const Navbar = () => {
             key={item.href}
             href={item.href}
             isActive={pathName === item.href}
+            defaultColor={item.color}
           >
             {item.children}
           </NavbarItem>
