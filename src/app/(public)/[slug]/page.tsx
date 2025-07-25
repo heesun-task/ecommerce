@@ -1,40 +1,49 @@
 import { notFound } from "next/navigation";
 
-import Container from "@/components/layouts/container";
-import ProductListingTemplate from "@/components/product/product-listing-template";
 import getFilteredProducts from "@/services/product.service";
-import { CategoryWithChildren, SearchParams } from "@/types/category.types";
+import { SearchParams } from "@/types/category.types";
 import { CategoryService } from "@/services/category.service";
 import ProductPageHeader from "@/components/product/product-page-header";
+import ProductGrid from "@/components/product/product-grid";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 };
 
 export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
+  // Extract the category slug from route params
   const resolvedParams = await params;
 
-  // Fetch category data by slug including children and parent categories
-  const categoryData = await CategoryService.getCategoryBySlug(resolvedParams.slug);
-  console.log('categoryData', categoryData);
+  // Fetch category data by slug including its children and parent categories
+  const categoryData = await CategoryService.getCategoryBySlug(
+    resolvedParams.slug
+  );
 
   if (!categoryData) {
     notFound();
   }
 
+  // Generate breadcrumb navigation for the current categoty
   const breadcrumbs = CategoryService.getCategoryBreadcrumbs(categoryData);
-  console.log('breadcrumbs', breadcrumbs);
 
-  // const { category, breadcrumbs } = categoryData;
+  // Extract filtering and sorting options from the search parameters
+  const resolvedSearchParams = await searchParams;
 
-  // const [{ products, pagination }, filterOptions] = await Promise.all([
-    // getFilteredProducts(params.slug, searchParams),
-  //   // getFilterOptions(params.slug),
-  // ]);
+  // Fetch products matching the current category and filters, with pagination
+  const { products, pagination } = await getFilteredProducts(
+    resolvedParams.slug,
+    resolvedSearchParams
+  );
+
+  // TODO: remove console logs for test purpose
+  console.log("breadcrumbs", breadcrumbs);
+  console.log("searchParams", resolvedSearchParams);
+  console.log("categoryData", categoryData);
+  console.log(products, pagination);
 
   return (
     <div>
@@ -44,18 +53,9 @@ export default async function CategoryPage({
         image={categoryData.image || "/images/default-category-banner.png"}
         breadcrumbs={breadcrumbs}
       />
+      <ProductGrid 
+        products={products}
+      />
     </div>
-    // <ProductListingTemplate
-    //   title={category.name}
-    //   description={category.description}
-    //   image={category.image || "/default-category-image.jpg"}
-    //   breadcrumbs={breadcrumbs}
-    //   products={products}
-    //   pagination={pagination}
-    //   // filterOptions={filterOptions}
-    //   // currentFilters={searchParams}
-    //   categorySlug={params.slug}
-    //   allCategories={[]}
-    // />
   );
 }

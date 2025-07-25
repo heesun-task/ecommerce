@@ -15,13 +15,13 @@ export type CategoryWithChildren = Prisma.CategoryGetPayload<{
   };
 }>;
 
-export type SearchParams = Promise<{
+export type SearchParams = {
   sizes?: string; // "S,M,L"
   minPrice?: string; // "50000"
   maxPrice?: string; // "200000"
   sortBy?: string; // "newest"
   page?: string; // "1"
-}>;
+};
 
 export type CategoryData = {
   category: {

@@ -1,23 +1,32 @@
+'use client';
 import { Product } from "@prisma/client";
+import { HeartIcon} from "lucide-react";
+
+import Container from "../layouts/container";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 type ProductGridProps = {
   products?: Product[];
-  onProductClick?: (product: Product) => void;
-}
+};
 
-const ProductGrid = ({
-  products,
-  onProductClick,
-}: ProductGridProps) => {
+const ProductGrid = ({ products }: ProductGridProps) => {
   return (
-    <div>
-      {products?.map((product) => (
-        <div key={product.id} onClick={() => onProductClick?.(product)}>
-          <h2>{product.name}</h2>
-        </div>
-      ))}
-    </div>
+    <Container>
+      {products?.map((product) => {
+        return (
+          <div key={product.id}>
+            <Button onClick={() =>{console.log('test')}}>
+              <HeartIcon/>
+            </Button>
+            <Link href={`/product/${product.slug}`}>
+              <h2>{product.name}</h2>
+            </Link>
+          </div>
+        );
+      })}
+    </Container>
   );
-}
+};
 
 export default ProductGrid;
