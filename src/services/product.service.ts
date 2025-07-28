@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Pagination, SearchParams } from "@/types/category.types";
 
-export default async function getFilteredProducts(
+export async function getFilteredProducts(
   categorySlug: string,
   searchParams: SearchParams
 ) {
@@ -79,6 +79,7 @@ export default async function getFilteredProducts(
             where: { active: true },
             orderBy: { price: "asc" },
           },
+          colors: true
         },
         orderBy,
         skip: (page - 1) * limit,

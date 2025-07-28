@@ -84,34 +84,48 @@ model ProductCategory {
   @@map("product_categories")
 }
 
-
 model Product {
   id            String    @id @default(cuid())
   name          String
   slug          String    @unique
+  basePrice     Float?    // base price for the product
   description   String?
   shortDescription String?
-  images        String[]
   material      String?
-  basePrice     Float?    // base price for the product, can be overridden by variants
   active        Boolean   @default(true)
   featured      Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   // relation
-  categories    ProductCategory[] // many-to-many relation 
+  categories    ProductCategory[]
   variants      ProductVariant[]
+  colors        ProductColor[]
 
   @@map("products")
 }
 
+model ProductColor {
+  id            String    @id @default(cuid())
+  name          String    // "Black", "Red", etc.
+  code          String    // hex code for color "#000000"
+  images        String[]  // images for this color
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relation
+  productId     String
+  product       Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variants      ProductVariant[]
+
+  @@unique([productId, name]) // unique color per product
+  @@map("product_colors")
+}
 
 model ProductVariant {
   id            String    @id @default(cuid())
   sku           String    @unique // Stock Keeping Unit
   size          String
-  color         String
   price         Float     // final price for this variant
   stock         Int       @default(0)
   active        Boolean   @default(true)
@@ -121,6 +135,9 @@ model ProductVariant {
   // relation
   productId     String
   product       Product   @relation(fields: [productId], references: [id])
+  colorId       String?
+  color         ProductColor? @relation(fields: [colorId], references: [id])
 
+  @@unique([productId, size, colorId])
   @@map("product_variants")
 }

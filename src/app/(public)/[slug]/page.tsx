@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import getFilteredProducts from "@/services/product.service";
+import { getFilteredProducts } from "@/services/product.service";
 import { SearchParams } from "@/types/category.types";
 import { CategoryService } from "@/services/category.service";
 import ProductPageHeader from "@/components/product/product-page-header";
@@ -53,9 +53,7 @@ export default async function CategoryPage({
         image={categoryData.image || "/images/default-category-banner.avif"}
         breadcrumbs={breadcrumbs}
       />
-      <ProductGrid 
-        products={products}
-      />
+      <ProductGrid products={products} />
     </div>
   );
 }
