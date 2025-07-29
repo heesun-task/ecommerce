@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({ 
       exists: !!user,
-      email: email // 디버깅용
+      email: email
     })
 
   } catch (error) {

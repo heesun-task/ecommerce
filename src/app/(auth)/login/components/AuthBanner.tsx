@@ -31,7 +31,7 @@ const AuthBanner = ({ onBack }: AuthBannerProps) => {
           
           <div className="space-y-2">
             <p className="text-lg lg:text-xl font-medium">
-              Canadian Outdoor Excellence
+              Coast to Coast Canadian Gear
             </p>
             <p className="text-sm lg:text-base text-white/80 max-w-md">
               Built for -40°C winters and +35°C summers.<br />

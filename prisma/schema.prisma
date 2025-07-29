@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -19,6 +18,8 @@ enum Role {
   ADMIN
 }
 
+
+/// --- User Auth Models ---
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -50,3 +51,93 @@ model Session {
   @@map("sessions")
 }
 
+/// --- Product Models ---
+model Category {
+  id            String      @id @default(cuid())
+  name          String    
+  slug          String      @unique
+  description   String
+  image         String?     
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // relation
+  // self-referencing relation for parent-child categories
+  parentId      String?     // top category if parentId is null
+  parent        Category?   @relation("CategoryParent", fields: [parentId], references: [id])
+  children      Category[]  @relation("CategoryParent")
+
+  products      ProductCategory[] // many-to-many relation
+}
+
+// Join table for many-to-many relation between products and categories
+model ProductCategory {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+
+  productId   String
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, categoryId])
+  @@map("product_categories")
+}
+
+model Product {
+  id            String    @id @default(cuid())
+  name          String
+  slug          String    @unique
+  basePrice     Float?    // base price for the product
+  description   String?
+  shortDescription String?
+  material      String?
+  active        Boolean   @default(true)
+  featured      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relation
+  categories    ProductCategory[]
+  variants      ProductVariant[]
+  colors        ProductColor[]
+
+  @@map("products")
+}
+
+model ProductColor {
+  id            String    @id @default(cuid())
+  name          String    // "Black", "Red", etc.
+  code          String    // hex code for color "#000000"
+  images        String[]  // images for this color
+  price         Float?    // price for this color variant
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relation
+  productId     String
+  product       Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variants      ProductVariant[]
+
+  @@unique([productId, name]) // unique color per product
+  @@map("product_colors")
+}
+
+model ProductVariant {
+  id            String    @id @default(cuid())
+  sku           String    @unique // Stock Keeping Unit
+  size          String
+  stock         Int       @default(0)
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relation
+  productId     String
+  product       Product   @relation(fields: [productId], references: [id])
+  colorId       String?
+  color         ProductColor? @relation(fields: [colorId], references: [id])
+
+  @@unique([productId, size, colorId])
+  @@map("product_variants")
+}
