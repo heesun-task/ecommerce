@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Pagination, SearchParams } from "@/types/category.types";
 
+// fetches products based on various filters, sorting options, and pagination
 export async function getFilteredProducts(
   categorySlug: string,
   searchParams: SearchParams
@@ -89,6 +90,7 @@ export async function getFilteredProducts(
     // Fetch products with pagination
     const [products, totalCount] = await Promise.all([
       prisma.product.findMany({
+        orderBy,
         where,
         include: {
           categories: { 
@@ -113,7 +115,6 @@ export async function getFilteredProducts(
             }
           }
         },
-        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),
@@ -160,25 +161,60 @@ export async function getFilteredProducts(
   }
 }
 
-// helper function: get display price based on selected color
-export function getDisplayPrice(product: any, selectedColorId?: string) {
-  if (selectedColorId) {
-    const selectedColor = product.colors.find((c: any) => c.id === selectedColorId);
-    if (selectedColor?.price) {
-      return selectedColor.price;
-    }
+export async function getSaleProducts(limit?: number) {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        active: true,
+        colors: {
+          some: {
+            price: {
+              not: null // only include colors with a (sale) price
+            }
+          }
+        }
+      },
+      include: {
+        colors: {
+          select: {
+            id: true,
+            name: true,
+            code: true,
+            images: true,
+            price: true
+          },
+          orderBy: {
+            price: 'asc'
+          }
+        },
+        categories: {
+          include: {
+            category: true
+          }
+        },
+        variants: {
+          where: {
+            active: true,
+            stock: {gt: 0} // only include variants with stock
+          },
+        }
+      }
+    });
+
+
+    // Filter only sale products (those with color prices lower than base price)
+    const saleProducts = products.filter((product) => {
+      return product.colors.some(color => 
+        color.price && color.price < product.basePrice
+      );
+    });
+
+    return saleProducts;
+  } catch (error) {
+    console.error("Error fetching sale products:", error);
+    throw error;
   }
-  
-  // if no color is selected or no price is set, return base price
-  return product.basePrice;
 }
 
-// helper function: check if product is discounted
-export function isDiscounted(product: any, selectedColorId?: string) {
-  if (selectedColorId) {
-    const selectedColor = product.colors.find((c: any) => c.id === selectedColorId);
-    return selectedColor?.price && selectedColor.price < (product.basePrice || Infinity);
-  }
-  
-  return product.hasDiscount;
-}
+export type SaleProducts = Awaited<ReturnType<typeof getSaleProducts>>;
+export type SaleProduct = SaleProducts[0];
