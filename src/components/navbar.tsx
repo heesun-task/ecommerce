@@ -66,10 +66,12 @@ export const Navbar = () => {
       className={cn(
         "bg-background fixed z-100 h-[60px] lg:h-[70px] flex justify-between items-center  p-3 md:pl-6 md:pr-6 w-full shadow-xl",
         "transition-all [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] duration-300 top-0 left-1/2 -translate-x-1/2",
-        isScrolled ? "max-w-full" : "lg:w-[calc(100%-14rem)] max-w-[96rem]"
+        isScrolled ? "top-0 max-w-full" : "top-5 lg:w-[calc(100%-14rem)] max-w-[96rem]"
       )}
     >
-      <Logo />
+      <Link href="/" className="flex items-center">
+        <Logo />
+      </Link>
 
       {/* Navbar Items */}
       <div className="items-center gap-7 hidden md:flex">

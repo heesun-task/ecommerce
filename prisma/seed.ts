@@ -44,7 +44,7 @@ async function main() {
       name: 'Men\'s',
       slug: 'mens',
       description: 'Men\'s outdoor clothing and gear',
-      image: '/images/categories/mens-hero.png'
+      image: '/images/categories/mens-hero.jpg'
     }
   });
 
@@ -72,15 +72,6 @@ async function main() {
       slug: 'bags',
       description: 'Backpacks, daypacks, and outdoor accessories',
       image: '/images/categories/bags-hero.jpg'
-    }
-  });
-
-  const saleCategory = await prisma.category.create({
-    data: {
-      name: 'Sale',
-      slug: 'sale',
-      description: 'Discounted outdoor gear and clothing',
-      image: '/images/categories/sale-hero.avif'
     }
   });
 
@@ -545,6 +536,7 @@ async function main() {
       productId: mensWindbreaker.id,
       name: 'Gray',
       code: '#6B7280',
+      price: 79,
       images: ['/images/products/mens-windgreaker-gray-1.avif']
     }
   });
@@ -744,6 +736,7 @@ async function main() {
       productId: womensLeggings.id,
       name: 'Gray',
       code: '#6B7280',
+      price: 55,
       images: ['/images/products/womens-leggings-gray-1.avif']
     }
   });
@@ -1193,35 +1186,6 @@ async function main() {
       }
     });
   }
-
-  // Add products to sale category
-  await prisma.productCategory.create({
-    data: {
-      productId: mensDownJacket.id,
-      categoryId: saleCategory.id
-    }
-  });
-
-  await prisma.productCategory.create({
-    data: {
-      productId: mensHoodie.id,
-      categoryId: saleCategory.id
-    }
-  });
-
-  await prisma.productCategory.create({
-    data: {
-      productId: trailRunningShoes.id,
-      categoryId: saleCategory.id
-    }
-  });
-
-  await prisma.productCategory.create({
-    data: {
-      productId: backpack15L.id,
-      categoryId: saleCategory.id
-    }
-  });
 
   console.log('Sample products created successfully!');
   console.log(`Created ${await prisma.category.count()} categories`);

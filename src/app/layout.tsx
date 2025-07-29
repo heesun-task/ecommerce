@@ -15,6 +15,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Peak",
   description: "Coast to Coast Canadian Gear",
+  icons: {
+    icon: [
+      { url: "/images/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/images/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/favicon/favicon.ico" },
+    ],
+    apple: "/images/favicon/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+  themeColor: "#0F4C3A",
 };
 
 export default function RootLayout({

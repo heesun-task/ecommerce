@@ -7,9 +7,10 @@ import { PreviewCarousel } from "./preview-carousel";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { SaleProduct } from "@/services/product.service";
 
 type ProductCardProps = {
-  product: ProductWithColors;
+  product: ProductWithColors | SaleProduct;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
