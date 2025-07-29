@@ -1,7 +1,6 @@
 import { BreadcrumbItemType } from "@/types/category.types";
-import Container from "../layouts/container";
+import Container from "../layout/container";
 import { ProductBreadcrumbs } from "./product-breadcrumbs";
-import { cn } from "@/lib/utils";
 
 type ProductPageHeaderProps = {
   title: string;
@@ -20,7 +19,7 @@ const ProductPageHeader = ({
 }: ProductPageHeaderProps) => {
   return (
     <div
-      className="relative bg-cover bg-[position:left_20%_top_40%] text-white min-h-130 flex items-center justify-center"
+      className="relative bg-cover bg-[position:left_20%_top_40%] text-white min-h-130 flex items-center justify-center mb-12"
       style={{ backgroundImage: `url('${image}')` }}
     >
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent" />

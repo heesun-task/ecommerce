@@ -45,11 +45,11 @@ const navbarItems = [
 export const Navbar = () => {
   const pathName = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 70);
+      setIsScrolled(window.scrollY > 70);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -60,17 +60,15 @@ export const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed z-100 h-[70px] flex justify-between items-center font-medium bg-white p-2",
-        "transition-all duration-200 top-0 left-1/2 -translate-x-1/2 max-w-[96rem]",
-        isSticky
-        ? "w-full"
-        : "w-full lg:w-[calc(100%-10rem)]"
+        "bg-background fixed z-100 h-[70px] flex justify-between items-center font-medium p-2 md:pl-4 md:pr-4 w-full shadow-xl",
+        "transition-all ease-in-out duration-140 top-0 left-1/2 -translate-x-1/2 max-w-[96rem] ",
+        !isScrolled && "lg:w-[calc(100%-14rem)]"
       )}
     >
       <Logo />
 
       {/* Navbar Items */}
-      <div className="item-center gap-4 hidden lg:flex">
+      <div className="item-center gap-7 hidden lg:flex">
         {navbarItems.map((item) => (
           <NavbarItem
             key={item.href}
@@ -92,7 +90,7 @@ export const Navbar = () => {
           asChild
           size="sm"
           variant="secondary"
-          className="h-full rounded-none bg-white size-sm"
+          className="h-full rounded-none size-sm"
         >
           <Link href="/login">
             <CircleUserIcon className="size-6"/>
@@ -102,7 +100,7 @@ export const Navbar = () => {
           asChild
           size="sm"
           variant="secondary"
-          className="h-full rounded-none bg-white gap-0"
+          className="h-full rounded-none gap-0"
         >
           <Link href="/cart">
             <ShoppingCartIcon className="size-6"/>
@@ -112,7 +110,7 @@ export const Navbar = () => {
           <Button
             size="sm"
             variant="secondary"
-            className="h-full rounded-none bg-white"
+            className="h-full rounded-none"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             <MenuIcon className="size-6"/>

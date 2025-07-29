@@ -40,13 +40,13 @@ export default async function CategoryPage({
   );
 
   // TODO: remove console logs for test purpose
-  console.log("breadcrumbs", breadcrumbs);
-  console.log("searchParams", resolvedSearchParams);
-  console.log("categoryData", categoryData);
-  console.log(products, pagination);
+  // console.log("breadcrumbs", breadcrumbs);
+  // console.log("searchParams", resolvedSearchParams);
+  // console.log("categoryData", categoryData);
+  // console.log(products, pagination);
 
   return (
-    <div>
+    <div className="pb-30">
       <ProductPageHeader
         title={categoryData.name}
         description={categoryData.description}

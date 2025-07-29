@@ -1,24 +1,19 @@
-'use client';
-import Link from "next/link";
-import { HeartIcon} from "lucide-react";
-
-import Container from "../layouts/container";
-import { Product } from "@prisma/client";
-import { Button } from "../ui/button";
+import Container from "../layout/container";
 import ProductCard from "./product-card";
+import { ProductWithColors } from "@/types/product.types";
 
 type ProductGridProps = {
-  products?: Product[];
+  products?: ProductWithColors[];
 };
 
 const ProductGrid = ({ products }: ProductGridProps) => {
   return (
     <Container>
-      {products?.map((product) => {
-        return (
-          <ProductCard key={product.id} product={product} />
-        );
-      })}
+      <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-6 gap-y-20">
+        {products?.map((product) => {
+          return <ProductCard key={product.id} product={product} />;
+        })}
+      </div>
     </Container>
   );
 };

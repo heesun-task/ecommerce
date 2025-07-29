@@ -110,6 +110,7 @@ model ProductColor {
   name          String    // "Black", "Red", etc.
   code          String    // hex code for color "#000000"
   images        String[]  // images for this color
+  price         Float?    // price for this color variant
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -126,7 +127,6 @@ model ProductVariant {
   id            String    @id @default(cuid())
   sku           String    @unique // Stock Keeping Unit
   size          String
-  price         Float     // final price for this variant
   stock         Int       @default(0)
   active        Boolean   @default(true)
   createdAt     DateTime  @default(now())
