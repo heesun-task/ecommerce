@@ -19,10 +19,10 @@ const ProductPageHeader = ({
 }: ProductPageHeaderProps) => {
   return (
     <div
-      className="relative bg-cover bg-[position:left_20%_top_40%] text-white min-h-130 flex items-center justify-center mb-12"
+      className="relative bg-cover bg-center text-white min-h-130 flex items-center justify-center mb-12"
       style={{ backgroundImage: `url('${image}')` }}
     >
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 to-transparent" />
       <Container className="relative z-20">
         <ProductBreadcrumbs items={breadcrumbs} />
         <h2 className="text-3xl font-bold font-serif mb-3 mt-3">{title}</h2>

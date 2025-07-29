@@ -9,7 +9,7 @@ type ProductGridProps = {
 const ProductGrid = ({ products }: ProductGridProps) => {
   return (
     <Container>
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-6 gap-y-20">
+      <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-6 gap-y-19">
         {products?.map((product) => {
           return <ProductCard key={product.id} product={product} />;
         })}
