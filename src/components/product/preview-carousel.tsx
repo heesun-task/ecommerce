@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
-import { ProductColor } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -14,11 +13,20 @@ import {
 type PreviewCarouselProps = {
   current: number;
   changeSlideByIndex: (index: number) => void;
-  productColors?: ProductColor[];
+  productColors: {
+    id: string;
+    name: string;
+    code: string;
+    images: string[];
+    price: number | null;
+  }[];
 };
 
-export function PreviewCarousel({ current, changeSlideByIndex, productColors = [] }: PreviewCarouselProps) {
-
+export function PreviewCarousel({
+  current,
+  changeSlideByIndex,
+  productColors = [],
+}: PreviewCarouselProps) {
   const thumbnailColors = useMemo(
     () =>
       productColors.map(({ code, name }, index) => (

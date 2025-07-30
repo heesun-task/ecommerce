@@ -43,6 +43,7 @@ export async function getUserById(id: string): Promise<Omit<User, 'password'> | 
         email: true,
         name: true,
         role: true,
+        emailVerified: true,
         createdAt: true,
         updatedAt: true,
         // Exclude password for security

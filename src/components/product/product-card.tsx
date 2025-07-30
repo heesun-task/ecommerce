@@ -2,15 +2,14 @@
 import Link from "next/link";
 import { HeartIcon } from "lucide-react";
 
-import { ProductWithColors } from "@/types/product.types";
+import { ProductSummary } from "@/types/product.types";
 import { PreviewCarousel } from "./preview-carousel";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { SaleProduct } from "@/services/product.service";
 
 type ProductCardProps = {
-  product: ProductWithColors | SaleProduct;
+  product: ProductSummary;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
@@ -41,7 +40,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </Button>
 
         <PreviewCarousel
-          productColors={product.colors}
+          productColors={"colors" in product ? product.colors : []}
           current={current}
           changeSlideByIndex={changeSlideByIndex}
         />
@@ -49,7 +48,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <strong aria-label="Product name" className="break-all">
             {product.name}
           </strong>
-          <p>{product.description}</p>
+          <p>{product.shortDescription}</p>
           <div className="font-medium">
             <span
               className={cn(" text-gray-500", {
