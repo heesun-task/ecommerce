@@ -215,6 +215,3 @@ export async function getSaleProducts(limit?: number) {
     throw error;
   }
 }
-
-export type SaleProducts = Awaited<ReturnType<typeof getSaleProducts>>;
-export type SaleProduct = SaleProducts[0];

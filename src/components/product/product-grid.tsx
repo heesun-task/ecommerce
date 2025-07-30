@@ -1,4 +1,3 @@
-import { SaleProduct } from "@/services/product.service";
 import Container from "../layout/container";
 import ProductCard from "./product-card";
 import { ProductSummary, ProductWithColors, ProductWithDetails } from "@/types/product.types";
