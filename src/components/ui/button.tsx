@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        icon: "bg-white rounded-[24px] h-12 w-auto shadow-xs",
+        icon: "bg-white rounded-[24px] h-12 w-auto shadow-sm",
         // custom style
         highlight:
           "bg-[var(--highlight)] text-[var(--highlight-foreground)] px-4 py-2 hover:bg-[var(--highlight-hover)] transition",
