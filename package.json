@@ -5,12 +5,14 @@
   "scripts": {
     "postinstall": "npx prisma generate",
     "dev": "next dev",
-    "build": "next build",
+    "build": "cross-env DATABASE_URL=$DATABASE_URL_POOL next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "npx prisma db push",
-    "db:seed": "npx prisma db seed",
-    "studio": "npx prisma studio"
+    
+    "db:push": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma db push",
+    "db:seed": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma db seed",
+    "migrate": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma migrate deploy",
+    "studio": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma studio"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
