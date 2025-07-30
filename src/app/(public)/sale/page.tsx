@@ -1,7 +1,7 @@
 import { getSaleProducts } from "@/services/product.service";
 import ProductPageHeader from "@/components/product/product-page-header";
 import ProductGrid from "@/components/product/product-grid";
-import { Container } from "lucide-react";
+import Container from "@/components/layout/container";
 
 export const dynamic = "force-dynamic"; // Force dynamic rendering for this page
 // This is useful for pages that need to be updated frequently or have dynamic content
