@@ -212,6 +212,6 @@ export async function getSaleProducts(limit?: number) {
     return saleProducts;
   } catch (error) {
     console.error("Error fetching sale products:", error);
-    throw error;
+    return [];
   }
 }
