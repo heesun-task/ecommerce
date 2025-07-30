@@ -1,13 +1,16 @@
 {
-  "name": "e-commerce",
+  "name": "peak-ecommerce",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "npx prisma generate && npx prisma db push",
+    "postinstall": "npx prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:push": "npx prisma db push",
+    "db:seed": "npx prisma db seed",
+    "studio": "npx prisma studio"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
