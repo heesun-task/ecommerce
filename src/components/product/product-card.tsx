@@ -7,9 +7,10 @@ import { PreviewCarousel } from "./preview-carousel";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { SaleProduct } from "@/services/product.service";
 
 type ProductCardProps = {
-  product: ProductWithColors;
+  product: ProductWithColors | SaleProduct;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
@@ -26,7 +27,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     >
       <div className="w-full relative">
         <Button
-          variant="ghost"
+          variant="icon"
           className="absolute top-2 right-2 z-10 p-1 bg-white rounded-full hover:bg-gray-100 transition-colors hover:text-red-600"
           aria-label="Add to favorites"
           data-slot="button"

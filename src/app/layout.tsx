@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,6 +15,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Peak",
   description: "Coast to Coast Canadian Gear",
+  icons: {
+    icon: [
+      { url: "/images/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/images/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/favicon/favicon.ico" },
+    ],
+    apple: "/images/favicon/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0F4C3A",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

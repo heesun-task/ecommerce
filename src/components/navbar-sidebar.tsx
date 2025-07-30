@@ -23,7 +23,9 @@ export const NavbarSidebar = ({ items, open, onOpenChange }: Props) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="p-0 transition-none">
         <SheetHeader className="p-2 pl-6 border-b ">
-          <Logo />
+          <Link href="/" className="flex items-center">
+            <Logo />
+          </Link>
         </SheetHeader>
         <ScrollArea className="flex flex-col overflow-y-auto h-full pb-2">
           {items.map((item) => (
