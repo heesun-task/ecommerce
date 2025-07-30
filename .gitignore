@@ -44,3 +44,6 @@ next-env.d.ts
 
 # Prisma
 /node_modules/.prisma/
+
+# Ignore Prisma migrations
+/prisma/migrations
