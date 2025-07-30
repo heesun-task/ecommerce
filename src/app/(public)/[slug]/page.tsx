@@ -39,6 +39,8 @@ export default async function CategoryPage({
     resolvedSearchParams
   );
 
+
+
   // TODO: remove console logs for test purpose
   // console.log("breadcrumbs", breadcrumbs);
   // console.log("searchParams", resolvedSearchParams);

@@ -76,6 +76,7 @@ e-commerce/
 │   ├── pages/
 │   ├── lib/            # Utilities & Configs   
 │   ├── services/       # Business logics & Data access
+│   ├── stores/         # Zustand state management
 │   └── types/
 └── public/             # Static files
     └── images/
