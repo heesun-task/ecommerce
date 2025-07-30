@@ -8,7 +8,7 @@
     "build": "cross-env DATABASE_URL=$DATABASE_URL_POOL next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "prisma migrate deploy && vercel --prod",
+    "deploy": "prisma migrate deploy && npx vercel --prod",
     "db:push": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma db push",
     "db:seed": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma db seed",
     "migrate": "cross-env DATABASE_URL=$DATABASE_URL_DIRECT npx prisma migrate deploy",

@@ -1,6 +1,7 @@
 import { getSaleProducts } from "@/services/product.service";
 import ProductPageHeader from "@/components/product/product-page-header";
 import ProductGrid from "@/components/product/product-grid";
+import { Container } from "lucide-react";
 
 export const dynamic = "force-dynamic"; // Force dynamic rendering for this page
 // This is useful for pages that need to be updated frequently or have dynamic content
@@ -20,10 +21,10 @@ export default async function SalePage({}) {
           image={"/images/default-category-banner.avif"}
           breadcrumbs={breadcrumbs}
         />
-        <div className="flex flex-col gap-y-4">
+        <Container className="flex flex-col gap-y-4">
           <h1 className="text-2xl font-bold">Sale</h1>
           <p>No products on sale at the moment.</p>
-        </div>
+        </Container>
       </div>
     );
   }
