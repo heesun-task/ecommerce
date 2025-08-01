@@ -1,6 +1,3 @@
-
-
-// ==================== Updated Seed Data with Real Images ====================
 // prisma/seed.ts
 
 import { PrismaClient } from '@prisma/client';
@@ -37,8 +34,9 @@ async function main() {
     }
   });
 
-  // ==================== Categories ====================
+  // ==================== Top Level Categories ====================
   
+  // Gender categories
   const mensCategory = await prisma.category.create({
     data: {
       name: 'Men\'s',
@@ -54,6 +52,34 @@ async function main() {
       slug: 'womens',
       description: 'Women\'s outdoor clothing and gear',
       image: '/images/categories/womens-hero.jpg'
+    }
+  });
+
+  // Product type categories (gender-independent)
+  const jacketsCategory = await prisma.category.create({
+    data: {
+      name: 'Jackets & Vests',
+      slug: 'jackets-vests',
+      description: 'Outdoor jackets, shells, and vests for all',
+      image: '/images/categories/jackets-hero.jpg'
+    }
+  });
+
+  const topsCategory = await prisma.category.create({
+    data: {
+      name: 'Tops & Base Layers',
+      slug: 'tops-base-layers',
+      description: 'Shirts, hoodies, and base layers',
+      image: '/images/categories/tops-hero.jpg'
+    }
+  });
+
+  const bottomsCategory = await prisma.category.create({
+    data: {
+      name: 'Bottoms',
+      slug: 'bottoms',
+      description: 'Pants, shorts, and hiking bottoms',
+      image: '/images/categories/bottoms-hero.jpg'
     }
   });
 
@@ -75,61 +101,8 @@ async function main() {
     }
   });
 
-  // Subcategories
-  const mensJackets = await prisma.category.create({
-    data: {
-      name: 'Jackets & Vests',
-      slug: 'mens-jackets-vests',
-      description: 'Men\'s outdoor jackets, shells, and vests',
-      parentId: mensCategory.id
-    }
-  });
-
-  const mensTops = await prisma.category.create({
-    data: {
-      name: 'Tops & Base Layers',
-      slug: 'mens-tops-base-layers',
-      description: 'Men\'s shirts, hoodies, and base layers',
-      parentId: mensCategory.id
-    }
-  });
-
-  const mensBottoms = await prisma.category.create({
-    data: {
-      name: 'Bottoms',
-      slug: 'mens-bottoms',
-      description: 'Men\'s pants, shorts, and hiking bottoms',
-      parentId: mensCategory.id
-    }
-  });
-
-  const womensJackets = await prisma.category.create({
-    data: {
-      name: 'Jackets & Vests',
-      slug: 'womens-jackets-vests',
-      description: 'Women\'s outdoor jackets, shells, and vests',
-      parentId: womensCategory.id
-    }
-  });
-
-  const womensTops = await prisma.category.create({
-    data: {
-      name: 'Tops & Base Layers',
-      slug: 'womens-tops-base-layers',
-      description: 'Women\'s shirts, hoodies, and base layers',
-      parentId: womensCategory.id
-    }
-  });
-
-  const womensBottoms = await prisma.category.create({
-    data: {
-      name: 'Bottoms',
-      slug: 'womens-bottoms',
-      description: 'Women\'s pants, shorts, and hiking bottoms',
-      parentId: womensCategory.id
-    }
-  });
-
+  // ==================== Subcategories ====================
+  
   const hikingBoots = await prisma.category.create({
     data: {
       name: 'Hiking Boots',
@@ -168,7 +141,7 @@ async function main() {
 
   console.log('Categories created');
 
-  // ==================== Products with Real Images ====================
+  // ==================== Products with Multiple Category Assignment ====================
 
   // 1. Men's Down Jacket
   const mensDownJacket = await prisma.product.create({
@@ -178,12 +151,13 @@ async function main() {
       description: 'Lightweight down jacket with 800-fill power goose down insulation.',
       shortDescription: 'Lightweight down jacket with 800-fill insulation',
       basePrice: 349,
+      gender: 'MENS',
       material: 'Ripstop Nylon, 800-Fill Goose Down',
       featured: true,
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensJackets.id }
+          { categoryId: jacketsCategory.id }
         ]
       }
     }
@@ -255,11 +229,12 @@ async function main() {
       description: 'Insulated padded jacket for cold weather adventures.',
       shortDescription: 'Insulated padded jacket for cold weather',
       basePrice: 279,
+      gender: 'MENS',
       material: 'Synthetic Insulation, Water-resistant Shell',
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensJackets.id }
+          { categoryId: jacketsCategory.id }
         ]
       }
     }
@@ -311,12 +286,13 @@ async function main() {
       description: 'Technical hoodie with moisture-wicking fabric.',
       shortDescription: 'Technical hoodie with moisture-wicking',
       basePrice: 129,
+      gender: 'MENS',
       material: 'Polyester Blend',
       featured: true,
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensTops.id }
+          { categoryId: topsCategory.id }
         ]
       }
     }
@@ -380,11 +356,12 @@ async function main() {
       description: 'Durable hiking pants with UPF 50+ sun protection.',
       shortDescription: 'Durable hiking pants with sun protection',
       basePrice: 119,
+      gender: 'MENS',
       material: 'Ripstop Polyester',
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensBottoms.id }
+          { categoryId: bottomsCategory.id }
         ]
       }
     }
@@ -421,11 +398,12 @@ async function main() {
       description: 'Flexible stretch pants for active outdoor use.',
       shortDescription: 'Flexible stretch pants for active use',
       basePrice: 139,
+      gender: 'MENS',
       material: 'Stretch Cotton Blend',
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensBottoms.id }
+          { categoryId: bottomsCategory.id }
         ]
       }
     }
@@ -477,11 +455,12 @@ async function main() {
       description: 'Lightweight trail shorts with built-in liner.',
       shortDescription: 'Lightweight trail shorts with liner',
       basePrice: 69,
+      gender: 'MENS',
       material: 'Quick-Dry Nylon',
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensBottoms.id }
+          { categoryId: bottomsCategory.id }
         ]
       }
     }
@@ -521,11 +500,12 @@ async function main() {
       description: 'Lightweight windbreaker for unpredictable weather.',
       shortDescription: 'Lightweight windbreaker jacket',
       basePrice: 89,
+      gender: 'MENS',
       material: 'Wind-resistant Nylon',
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: mensJackets.id }
+          { categoryId: jacketsCategory.id }
         ]
       }
     }
@@ -562,12 +542,13 @@ async function main() {
       description: 'Women\'s cut down jacket with 700-fill power insulation.',
       shortDescription: 'Women\'s down jacket with 700-fill insulation',
       basePrice: 329,
+      gender: 'WOMENS',
       material: 'Ripstop Nylon, 700-Fill Down',
       featured: true,
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: womensJackets.id }
+          { categoryId: jacketsCategory.id }
         ]
       }
     }
@@ -620,11 +601,12 @@ async function main() {
       description: 'Lightweight windbreaker designed for women.',
       shortDescription: 'Lightweight women\'s windbreaker',
       basePrice: 89,
+      gender: 'WOMENS',
       material: 'Wind-resistant Nylon',
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: womensJackets.id }
+          { categoryId: jacketsCategory.id }
         ]
       }
     }
@@ -678,11 +660,12 @@ async function main() {
       description: 'Women\'s merino wool base layer with feminine fit.',
       shortDescription: 'Women\'s merino wool base layer',
       basePrice: 89,
+      gender: 'WOMENS',
       material: '100% Merino Wool',
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: womensTops.id }
+          { categoryId: topsCategory.id }
         ]
       }
     }
@@ -721,11 +704,12 @@ async function main() {
       description: 'High-performance leggings with moisture-wicking fabric.',
       shortDescription: 'High-performance moisture-wicking leggings',
       basePrice: 79,
+      gender: 'WOMENS',
       material: 'Stretch Polyester Blend',
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: womensBottoms.id }
+          { categoryId: bottomsCategory.id }
         ]
       }
     }
@@ -778,11 +762,12 @@ async function main() {
       description: 'Comfortable stretch pants for outdoor activities.',
       shortDescription: 'Comfortable stretch pants for outdoor use',
       basePrice: 119,
+      gender: 'WOMENS',
       material: 'Stretch Cotton Blend',
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: womensBottoms.id }
+          { categoryId: bottomsCategory.id }
         ]
       }
     }
@@ -811,7 +796,7 @@ async function main() {
     });
   }
 
-  // 13. Hiking Shoes
+  // 13. Hiking Shoes (Unisex - multiple category assignment)
   const hikingShoes = await prisma.product.create({
     data: {
       name: 'Alpine Hiking Shoes',
@@ -819,10 +804,13 @@ async function main() {
       description: 'Durable hiking shoes with excellent grip and comfort.',
       shortDescription: 'Durable hiking shoes with excellent grip',
       basePrice: 189,
+      gender: 'UNISEX',
       material: 'Synthetic Leather, Rubber Sole',
       featured: true,
       categories: {
         create: [
+          { categoryId: mensCategory.id },
+          { categoryId: womensCategory.id },
           { categoryId: footwearCategory.id },
           { categoryId: hikingBoots.id }
         ]
@@ -881,7 +869,7 @@ async function main() {
     }
   }
 
-  // 14. Trail Running Shoes
+  // 14. Trail Running Shoes (Unisex - multiple category assignment)
   const trailRunningShoes = await prisma.product.create({
     data: {
       name: 'Trail Running Shoes',
@@ -889,17 +877,18 @@ async function main() {
       description: 'Lightweight trail running shoes with aggressive tread.',
       shortDescription: 'Lightweight trail running shoes',
       basePrice: 149,
+      gender: 'UNISEX',
       material: 'Mesh, Synthetic Rubber',
       categories: {
         create: [
+          { categoryId: mensCategory.id },
+          { categoryId: womensCategory.id },
           { categoryId: footwearCategory.id },
           { categoryId: trailShoes.id }
         ]
       }
     }
   });
-
-  console.log('Trail Running Shoes created:', trailRunningShoes.id);
 
   const trailRunningShoesGray = await prisma.productColor.create({
     data: {
@@ -909,8 +898,6 @@ async function main() {
       images: ['/images/products/trail-shoes-gray-1.jpg']
     }
   });
-
-  console.log('Trail Running Shoes Gray created:', trailRunningShoesGray.id);
 
   const trailRunningShoesRed = await prisma.productColor.create({
     data: {
@@ -951,7 +938,7 @@ async function main() {
     }
   }
 
-  // 15. Backpack 45L
+  // 15. Backpack 45L (Unisex)
   const backpack45L = await prisma.product.create({
     data: {
       name: 'Alpine Backpack 45L',
@@ -959,6 +946,7 @@ async function main() {
       description: 'Multi-day hiking backpack with 45L capacity.',
       shortDescription: '45L hiking backpack for multi-day trips',
       basePrice: 219,
+      gender: 'UNISEX',
       material: 'Ripstop Nylon, Aluminum Frame',
       categories: {
         create: [
@@ -1048,7 +1036,7 @@ async function main() {
     }
   }
 
-  // 16. Backpack 15L
+  // 16. Backpack 15L (Unisex)
   const backpack15L = await prisma.product.create({
     data: {
       name: 'Compact Backpack 15L',
@@ -1056,6 +1044,7 @@ async function main() {
       description: 'Ultra-light backpack that packs down small for travel.',
       shortDescription: 'Ultra-light packable 15L backpack',
       basePrice: 89,
+      gender: 'UNISEX',
       material: 'Ultralight Nylon',
       categories: {
         create: [
@@ -1122,7 +1111,7 @@ async function main() {
     });
   }
 
-  // 17. Daypack 25L
+  // 17. Daypack 25L (Unisex)
   const daypack25L = await prisma.product.create({
     data: {
       name: 'Summit Daypack 25L',
@@ -1130,6 +1119,7 @@ async function main() {
       description: 'Versatile daypack perfect for hiking and travel.',
       shortDescription: '25L daypack for hiking and travel',
       basePrice: 129,
+      gender: 'UNISEX',
       material: 'Recycled Polyester',
       featured: true,
       categories: {
@@ -1164,7 +1154,7 @@ async function main() {
       productId: daypack25L.id,
       name: 'Sky Blue',
       code: '#0EA5E9',
-      images: ['/images/products/daypack-25l-skyblue-1.avif']
+      images: ['/images/products/daypack-25l-blue-1.avif']
     }
   });
 
@@ -1207,35 +1197,34 @@ main()
 // ==================== Usage Examples ====================
 
 /*
-// Display color-specific images in product grid
-const productsWithColors = await prisma.product.findMany({
+// Get all categories with hierarchy
+const categoriesWithHierarchy = await prisma.category.findMany({
+  include: {
+    children: true,
+    parent: true,
+    _count: {
+      select: {
+        products: true
+      }
+    }
+  },
+  orderBy: [
+    { parentId: 'asc' },
+    { name: 'asc' }
+  ]
+});
+
+// Get products by gender
+const mensProducts = await prisma.product.findMany({
+  where: {
+    gender: 'MENS'
+  },
   include: {
     colors: {
       select: {
-        id: true,
         name: true,
         code: true,
         images: true
-      }
-    }
-  }
-});
-
-// Get product with colors and variants for product detail page
-const productDetail = await prisma.product.findUnique({
-  where: { slug: 'mens-alpine-down-jacket' },
-  include: {
-    colors: {
-      include: {
-        variants: {
-          where: { stock: { gt: 0 } }, // only show available sizes
-          select: {
-            size: true,
-            stock: true,
-            price: true,
-            sku: true
-          }
-        }
       }
     },
     categories: {
@@ -1246,28 +1235,13 @@ const productDetail = await prisma.product.findUnique({
   }
 });
 
-// Get available sizes for specific color
-const availableSizes = await prisma.productVariant.findMany({
-  where: {
-    productId: 'product-id',
-    colorId: 'color-id',
-    stock: { gt: 0 }
-  },
-  select: {
-    size: true,
-    stock: true,
-    price: true,
-    sku: true
-  }
-});
-
-// Get products by category with colors
-const categoryProducts = await prisma.product.findMany({
+// Get products by category (works with new structure)
+const jacketsProducts = await prisma.product.findMany({
   where: {
     categories: {
       some: {
         category: {
-          slug: 'mens-jackets-vests'
+          slug: 'jackets-vests'
         }
       }
     }
@@ -1278,6 +1252,95 @@ const categoryProducts = await prisma.product.findMany({
         name: true,
         code: true,
         images: true
+      }
+    }
+  }
+});
+
+// Get unisex products that appear in both men's and women's categories
+const unisexInBothCategories = await prisma.product.findMany({
+  where: {
+    AND: [
+      {
+        categories: {
+          some: {
+            category: {
+              slug: 'mens'
+            }
+          }
+        }
+      },
+      {
+        categories: {
+          some: {
+            category: {
+              slug: 'womens'
+            }
+          }
+        }
+      }
+    ]
+  },
+  include: {
+    colors: true,
+    categories: {
+      include: {
+        category: true
+      }
+    }
+  }
+});
+
+// Advanced filtering: Men's jackets under $200
+const affordableMensJackets = await prisma.product.findMany({
+  where: {
+    AND: [
+      {
+        categories: {
+          some: {
+            category: {
+              slug: 'mens'
+            }
+          }
+        }
+      },
+      {
+        categories: {
+          some: {
+            category: {
+              slug: 'jackets-vests'
+            }
+          }
+        }
+      },
+      {
+        basePrice: {
+          lt: 200
+        }
+      }
+    ]
+  },
+  include: {
+    colors: true
+  }
+});
+
+// Get featured products across all categories
+const featuredProducts = await prisma.product.findMany({
+  where: {
+    featured: true
+  },
+  include: {
+    colors: {
+      select: {
+        name: true,
+        code: true,
+        images: true
+      }
+    },
+    categories: {
+      include: {
+        category: true
       }
     }
   }
