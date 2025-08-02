@@ -49,7 +49,7 @@ const MenuLinkItem = ({
             ? `text-${defaultColor} hover:text-${defaultColor}`
             : "hover:text-peak-forest",
           isFocused && "after:w-6 text-peak-forest",
-          isFocused && defaultColor && `text-${defaultColor}`
+          isFocused && defaultColor && `text-${defaultColor}`,
         )}
       >
         <Link href={href}>{children}</Link>

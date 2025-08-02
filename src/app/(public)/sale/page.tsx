@@ -37,7 +37,7 @@ export default async function SalePage({}) {
         image={"/images/default-category-banner.avif"}
         breadcrumbs={breadcrumbs}
       />
-      <ProductGrid products={products} />
+      <ProductGrid products={products} topLevelCategory={'/sale'} />
     </div>
   );
 }

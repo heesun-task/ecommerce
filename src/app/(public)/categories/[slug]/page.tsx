@@ -1,4 +1,3 @@
-
 import { notFound } from "next/navigation";
 
 import { getFilteredProducts } from "@/services/product.service";
@@ -36,16 +35,13 @@ export default async function CategoryPage({
   const breadcrumbs = CategoryService.getCategoryBreadcrumbs(categoryData);
 
   const genderFilter = extractGenderFromSlug(slug);
-  
+
   const enhancedSearchParams = {
     ...resolvedSearchParams,
-    ...(genderFilter && { gender: genderFilter })
+    ...(genderFilter && { gender: genderFilter }),
   } as SearchParams;
 
-  const { products } = await getFilteredProducts(
-    slug,
-    enhancedSearchParams
-  );
+  const { products } = await getFilteredProducts(slug, enhancedSearchParams);
 
   return (
     <div className="pb-30">
@@ -56,13 +52,16 @@ export default async function CategoryPage({
         breadcrumbs={breadcrumbs}
         showBanner={!!categoryData.image && categoryData.parentId === null}
       />
-      <ProductGrid products={products} />
+      <ProductGrid
+        products={products}
+        topLevelCategory={"/categories" + breadcrumbs[0].href}
+      />
     </div>
   );
 }
 
-function extractGenderFromSlug(slug: string): 'MENS' | 'WOMENS' | null {
-  if (slug.startsWith('womens') || slug.includes('-womens-')) return 'WOMENS';
-  if (slug.startsWith('mens') || slug.includes('-mens-')) return 'MENS';
+function extractGenderFromSlug(slug: string): "MENS" | "WOMENS" | null {
+  if (slug.startsWith("womens") || slug.includes("-womens-")) return "WOMENS";
+  if (slug.startsWith("mens") || slug.includes("-mens-")) return "MENS";
   return null;
 }

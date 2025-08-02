@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { MenuItemType } from "./menu-items";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 
 interface SubMenuProps {
@@ -42,9 +43,10 @@ const NavbarSubMenu = ({
               ) : (
                 <Link
                   href={item.disabled ? "#" : item.href}
-                  className="block text-sm font-semibold text-gray-900 hover:text-peak-forest transition-colors"
+                  className="flex items-center text-sm font-semibold text-gray-900 hover:text-peak-forest transition-colors hover:underline"
                 >
                   {item.label}
+                  <ArrowRight className="inline-block ml-1" size={14}/>
                 </Link>
               )}
               {item.children && (
@@ -60,7 +62,7 @@ const NavbarSubMenu = ({
                       <li key={subItem.href}>
                         <Link
                           href={subItem.href}
-                          className="block text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                          className="block text-sm text-gray-600 hover:text-gray-900 transition-colors hover:underline"
                         >
                           {subItem.label}
                         </Link>
