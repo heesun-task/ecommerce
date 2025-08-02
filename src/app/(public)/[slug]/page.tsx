@@ -18,7 +18,6 @@ export default async function CategoryPage({
   // Extract the category slug from route params
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  console.log("params", resolvedParams, resolvedSearchParams, props);
 
   // Fetch category data by slug including its children and parent categories
   const categoryData = await CategoryService.getCategoryBySlug(
@@ -39,12 +38,6 @@ export default async function CategoryPage({
     resolvedParams.slug,
     resolvedSearchParams
   );
-
-  // TODO: remove console logs for test purpose
-  // console.log("breadcrumbs", breadcrumbs);
-  // console.log("searchParams", resolvedSearchParams);
-  // console.log("categoryData", categoryData);
-  // console.log(products, pagination);
 
   return (
     <div className="pb-30">

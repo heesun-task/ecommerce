@@ -17,7 +17,7 @@ function BreadcrumbList({
       data-slot="breadcrumb-list"
       className={cn(
         "flex flex-wrap items-center gap-1.5 text-xs break-words",
-        variant === "light" ? "text-gray-300" : "text-gray-500",
+        variant === "light" ? "text-gray-300" : "text-gray-400",
         className
       )}
       {...props}
@@ -50,10 +50,10 @@ function BreadcrumbLink({
     <Comp
       data-slot="breadcrumb-link"
       className={cn(
-        "transition-colors underline",
+        "transition-colors underline hover:text-peak-maple",
         variant === "light"
-          ? "hover:text-white text-gray-300"
-          : "hover:text-foreground text-gray-500",
+          ? " text-gray-300"
+          : " text-gray-400",
         className
       )}
       {...props}

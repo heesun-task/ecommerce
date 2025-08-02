@@ -94,6 +94,8 @@ export const Navbar = () => {
       setFocusedMenu(item.href);
       setActiveSubmenu(item.children);
       setIsSubmenuVisible(true);
+    } else {
+      handleMenuLeave();
     }
   };
 

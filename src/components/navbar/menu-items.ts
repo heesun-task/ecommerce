@@ -161,105 +161,105 @@ export const menuItems: MenuItemType[] = [
       },
     ],
   },
-  {
-    label: "Activities",
-    href: "/categories/activities",
-    children: [
-      {
-        label: "Shop All",
-        href: "/categories/activities",
-        children: [
-          { label: "All Activities", href: "/categories/activities" },
-        ],
-      },
-      {
-        label: "Hiking",
-        href: "/categories/hiking",
-        children: [
-          { label: "Day Hiking", href: "/categories/day-hiking" },
-          { label: "Backpacking", href: "/categories/backpacking" },
-          { label: "Mountaineering", href: "/categories/mountaineering" },
-        ],
-      },
-      {
-        label: "Climbing",
-        href: "/categories/climbing",
-        children: [
-          { label: "Rock Climbing", href: "/categories/rock-climbing" },
-          { label: "Indoor Climbing", href: "/categories/indoor-climbing" },
-          { label: "Bouldering", href: "/categories/bouldering" },
-        ],
-      },
-      {
-        label: "Running",
-        href: "/categories/running",
-        children: [
-          { label: "Trail Running", href: "/categories/trail-running" },
-          { label: "Ultra Running", href: "/categories/ultra-running" },
-          { label: "Road Running", href: "/categories/road-running" },
-        ],
-      },
-      {
-        label: "Travel",
-        href: "/categories/travel",
-        disabled: true,
-        children: [
-          { label: "Adventure Travel", href: "/categories/adventure-travel" },
-          { label: "Urban Exploration", href: "/categories/urban-exploration" },
-          { label: "Digital Nomad", href: "/categories/digital-nomad" },
-        ],
-      },
-    ],
-  },
+  // {
+  //   label: "Activities",
+  //   href: "/categories/activities",
+  //   children: [
+  //     {
+  //       label: "Shop All",
+  //       href: "/categories/activities",
+  //       children: [
+  //         { label: "All Activities", href: "/categories/activities" },
+  //       ],
+  //     },
+  //     {
+  //       label: "Hiking",
+  //       href: "/categories/hiking",
+  //       children: [
+  //         { label: "Day Hiking", href: "/categories/day-hiking" },
+  //         { label: "Backpacking", href: "/categories/backpacking" },
+  //         { label: "Mountaineering", href: "/categories/mountaineering" },
+  //       ],
+  //     },
+  //     {
+  //       label: "Climbing",
+  //       href: "/categories/climbing",
+  //       children: [
+  //         { label: "Rock Climbing", href: "/categories/rock-climbing" },
+  //         { label: "Indoor Climbing", href: "/categories/indoor-climbing" },
+  //         { label: "Bouldering", href: "/categories/bouldering" },
+  //       ],
+  //     },
+  //     {
+  //       label: "Running",
+  //       href: "/categories/running",
+  //       children: [
+  //         { label: "Trail Running", href: "/categories/trail-running" },
+  //         { label: "Ultra Running", href: "/categories/ultra-running" },
+  //         { label: "Road Running", href: "/categories/road-running" },
+  //       ],
+  //     },
+  //     {
+  //       label: "Travel",
+  //       href: "/categories/travel",
+  //       disabled: true,
+  //       children: [
+  //         { label: "Adventure Travel", href: "/categories/adventure-travel" },
+  //         { label: "Urban Exploration", href: "/categories/urban-exploration" },
+  //         { label: "Digital Nomad", href: "/categories/digital-nomad" },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     label: "SALE",
     href: "/sale",
     color: "peak-maple",
-    children: [
-      {
-        label: "Shop All",
-        href: "/sale",
-        children: [
-          { label: "All Sale", href: "/sale" },
-        ],
-      },
-      {
-        label: "Women's Sale",
-        href: "/sale/womens",
-        children: [
-          { label: "Clothing", href: "/sale/womens-clothing" },
-          { label: "Footwear", href: "/sale/womens-footwear" },
-          { label: "Accessories", href: "/sale/womens-accessories" },
-        ],
-      },
-      {
-        label: "Men's Sale",
-        href: "/sale/mens",
-        children: [
-          { label: "Clothing", href: "/sale/mens-clothing" },
-          { label: "Footwear", href: "/sale/mens-footwear" },
-          { label: "Accessories", href: "/sale/mens-accessories" },
-        ],
-      },
-      {
-        label: "Gear Sale",
-        href: "/sale/gear",
-        children: [
-          { label: "Backpacks", href: "/sale/backpacks" },
-          { label: "Camping Gear", href: "/sale/camping" },
-          { label: "Tech & Tools", href: "/sale/tech" },
-        ],
-      },
-      {
-        label: "Clearance",
-        href: "/categories/clearance",
-        disabled: true,
-        children: [
-          { label: "Final Sale", href: "/categories/final-sale" },
-          { label: "Last Chance", href: "/categories/last-chance" },
-          { label: "End of Season", href: "/categories/end-of-season" },
-        ],
-      },
-    ],
+    // children: [
+    //   {
+    //     label: "Shop All",
+    //     href: "/sale",
+    //     children: [
+    //       { label: "All Sale", href: "/sale" },
+    //     ],
+    //   },
+    //   {
+    //     label: "Women's Sale",
+    //     href: "/sale/womens",
+    //     children: [
+    //       { label: "Clothing", href: "/sale/womens-clothing" },
+    //       { label: "Footwear", href: "/sale/womens-footwear" },
+    //       { label: "Accessories", href: "/sale/womens-accessories" },
+    //     ],
+    //   },
+    //   {
+    //     label: "Men's Sale",
+    //     href: "/sale/mens",
+    //     children: [
+    //       { label: "Clothing", href: "/sale/mens-clothing" },
+    //       { label: "Footwear", href: "/sale/mens-footwear" },
+    //       { label: "Accessories", href: "/sale/mens-accessories" },
+    //     ],
+    //   },
+    //   {
+    //     label: "Gear Sale",
+    //     href: "/sale/gear",
+    //     children: [
+    //       { label: "Backpacks", href: "/sale/backpacks" },
+    //       { label: "Camping Gear", href: "/sale/camping" },
+    //       { label: "Tech & Tools", href: "/sale/tech" },
+    //     ],
+    //   },
+    //   {
+    //     label: "Clearance",
+    //     href: "/categories/clearance",
+    //     disabled: true,
+    //     children: [
+    //       { label: "Final Sale", href: "/categories/final-sale" },
+    //       { label: "Last Chance", href: "/categories/last-chance" },
+    //       { label: "End of Season", href: "/categories/end-of-season" },
+    //     ],
+    //   },
+    // ],
   },
 ];
