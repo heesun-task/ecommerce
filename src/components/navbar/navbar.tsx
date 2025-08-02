@@ -98,9 +98,9 @@ export const Navbar = () => {
   };
 
   const handleMenuLeave = () => {
-    // setIsSubmenuVisible(false);
-    // setActiveSubmenu(null);
-    // setFocusedMenu(null);
+    setIsSubmenuVisible(false);
+    setActiveSubmenu(null);
+    setFocusedMenu(null);
   };
 
   return (
@@ -114,7 +114,7 @@ export const Navbar = () => {
       onMouseLeave={handleMenuLeave}
     >
       <div className="relative flex-1 flex justify-center bg-[#FAFAFA] w-full max-w-full">
-        <div className="relative flex-1 flex items-center justify-between px-6 min-h-17 md:container  border-red-500">
+        <div className="relative flex-1 flex items-center justify-between px-6 min-h-17 md:container">
           <Link href="/" className="flex items-center">
             <Logo />
           </Link>
