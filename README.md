@@ -1,6 +1,7 @@
 # PEAK - Canadian Outdoor E-commerce Platform
 
-https://peak-ecommerce.vercel.app/womens
+https://peak-ecommerce.vercel.app
+
 A fully functional e-commerce platform built from scratch, targeting the Canadian outdoor market. This project demonstrates essential full-stack development skills with production-ready architecture and modern development practices
 
 - Authentication with role-based access (NextAuth)
