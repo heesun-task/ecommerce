@@ -37,10 +37,7 @@ const MenuLinkItem = ({
   onMouseEnter,
 }: MenuLinkItemProps) => {
   return (
-    <div
-      className="relative"
-      onMouseEnter={onMouseEnter}
-    >
+    <div className="relative" onMouseEnter={onMouseEnter}>
       <Button
         asChild
         variant="ghost"
@@ -101,9 +98,9 @@ export const Navbar = () => {
   };
 
   const handleMenuLeave = () => {
-    setIsSubmenuVisible(false);
-    setActiveSubmenu(null);
-    setFocusedMenu(null);
+    // setIsSubmenuVisible(false);
+    // setActiveSubmenu(null);
+    // setFocusedMenu(null);
   };
 
   return (
@@ -116,21 +113,14 @@ export const Navbar = () => {
       )}
       onMouseLeave={handleMenuLeave}
     >
-      <div className="flex-1 flex justify-center bg-[#FAFAFA] w-full max-w-full">
-        {/* Sub Menu */}
-        {activeSubmenu && (
-          <NavbarSubMenu items={activeSubmenu} isVisible={isSubmenuVisible} />
-        )}
-
-        <div className="relative flex-1 flex items-center justify-between px-6 min-h-17 md:container">
+      <div className="relative flex-1 flex justify-center bg-[#FAFAFA] w-full max-w-full">
+        <div className="relative flex-1 flex items-center justify-between px-6 min-h-17 md:container  border-red-500">
           <Link href="/" className="flex items-center">
             <Logo />
           </Link>
 
           {/* Navbar Items */}
-          <div
-            className="items-center gap-7 hidden md:flex h-full px-3"
-          >
+          <div className="items-center gap-7 hidden md:flex h-full px-3">
             {menuItems.map((item) => (
               <MenuLinkItem
                 key={item.href}
@@ -191,6 +181,10 @@ export const Navbar = () => {
             </div>
           </div>
         </div>
+        {/* Sub Menu */}
+        {activeSubmenu && (
+          <NavbarSubMenu items={activeSubmenu} isVisible={isSubmenuVisible} />
+        )}
       </div>
 
       {/* Sidebar */}

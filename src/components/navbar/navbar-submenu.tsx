@@ -20,7 +20,7 @@ const NavbarSubMenu = ({
   return (
     <div
       className={cn(
-        "hidden md:block absolute left-0 top-full w-full z-30 mx-auto px-3",
+        "hidden md:block absolute left-0 right-0 top-full w-full z-30 mx-auto",
         "opacity-0 translate-y-2 pointer-events-none",
         "transition-all duration-200 ease-out",
         isVisible && "opacity-100 translate-y-0 pointer-events-auto"
@@ -29,7 +29,7 @@ const NavbarSubMenu = ({
       onMouseLeave={onMouseLeave}
     >
       <div className="w-full pt-6 pb-12 px-20 bg-[#FAFAFA] flex justify-center">
-        <div className="container grid grid-cols-5 gap-4">
+        <div className="container grid grid-cols-5 gap-4 md:max-w-146 lg:max-w-210 xl:max-w-274">
           {items.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.disabled ? (

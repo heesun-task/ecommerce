@@ -22,19 +22,19 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col gap-y-4 mt-16">
-            <Link passHref href="/mens/footwear">
+            <Link passHref href="/categories/mens-footwear">
               <Button variant="outline" size="lg">
                 Shop Men's
               </Button>
             </Link>
 
-            <Link passHref href="/womens/footwear">
+            <Link passHref href="/categories/womens-footwear">
               <Button variant="outline" size="lg">
                 Shop Women's
               </Button>
             </Link>
 
-            <Link passHref href="/footwear">
+            <Link passHref href="/categories/footwear">
               <Button variant="outline" size="lg">
                 Shop All
               </Button>
