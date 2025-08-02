@@ -19,6 +19,12 @@ enum Role {
   ADMIN
 }
 
+enum Gender {
+  MENS
+  WOMENS  
+  UNISEX
+}
+
 
 /// --- User Auth Models ---
 model User {
@@ -90,6 +96,7 @@ model Product {
   name          String
   slug          String    @unique
   basePrice     Float    // base price for the product
+  gender        Gender?   @default(UNISEX) 
   description   String?
   shortDescription String?
   material      String?

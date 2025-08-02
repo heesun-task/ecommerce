@@ -7,7 +7,7 @@ export interface BreadcrumbItemType {
 
 export type CategoryWithChildren = Prisma.CategoryGetPayload<{
   include: {
-    parent: true;
+    parent: true,
     children: true;
     _count: {
       select: { products: true };

@@ -1,22 +1,24 @@
 import { notFound } from "next/navigation";
 
 import { getFilteredProducts } from "@/services/product.service";
-import { SearchParams } from "@/types/category.types";
 import { CategoryService } from "@/services/category.service";
 import ProductPageHeader from "@/components/product/product-page-header";
 import ProductGrid from "@/components/product/product-grid";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<SearchParams>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export default async function CategoryPage({
   params,
   searchParams,
+  ...props
 }: CategoryPageProps) {
   // Extract the category slug from route params
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  console.log("params", resolvedParams, resolvedSearchParams, props);
 
   // Fetch category data by slug including its children and parent categories
   const categoryData = await CategoryService.getCategoryBySlug(
@@ -31,15 +33,12 @@ export default async function CategoryPage({
   const breadcrumbs = CategoryService.getCategoryBreadcrumbs(categoryData);
 
   // Extract filtering and sorting options from the search parameters
-  const resolvedSearchParams = await searchParams;
 
   // Fetch products matching the current category and filters, with pagination
   const { products, pagination } = await getFilteredProducts(
     resolvedParams.slug,
     resolvedSearchParams
   );
-
-
 
   // TODO: remove console logs for test purpose
   // console.log("breadcrumbs", breadcrumbs);

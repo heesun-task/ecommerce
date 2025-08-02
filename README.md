@@ -89,11 +89,13 @@ e-commerce/
 ├── MEN'S
 │   ├── Jackets & Vests
 │   ├── Tops & Base Layers  
-│   └── Bottoms
+│   ├── Bottoms
+│   └── Footwear
 ├── WOMEN'S
 │   ├── Jackets & Vests
 │   ├── Tops & Base Layers
 │   └── Bottoms
+│   └── Footwear
 ├── FOOTWEAR
 │   ├── Hiking Boots
 │   └── Trail Shoes

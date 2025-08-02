@@ -1,10 +1,8 @@
-import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { prisma } from "@/lib/prisma";
 import {
   BreadcrumbItemType,
   CategoryWithChildren,
 } from "@/types/category.types";
-import { Category } from "@prisma/client";
 
 export class CategoryService {
   static async getCategoryBySlug(
@@ -14,7 +12,11 @@ export class CategoryService {
       const categories = await prisma.category.findUnique({
         where: { slug },
         include: {
-          parent: true,
+          parent: {
+            include: {
+              parent: true,
+            },
+          },
           children: true,
           _count: {
             select: { products: true },
@@ -34,16 +36,48 @@ export class CategoryService {
   ): BreadcrumbItemType[] {
     const breadcrumbs = [];
 
-    const { parent } = category;
+    const getParentCategories = (cat: CategoryWithChildren) => {
+      if (cat.parent) {
+        breadcrumbs.unshift({ label: cat.parent.name, href: `/${cat.parent.slug}` });
+        getParentCategories(cat.parent);
+      }
+    };
 
     // add parent
-    if (parent) {
-      breadcrumbs.push({ label: parent.name, href: `/${parent.slug}` });
+    if (category.parent) {
+      getParentCategories(category);
     }
 
     // add itself
-    breadcrumbs.push({ label: category.name});
+    breadcrumbs.push({ label: category.name });
 
     return breadcrumbs;
+  }
+
+  static async getAllCategories(): Promise<CategoryWithChildren[]> {
+    try {
+      const categories = await prisma.category.findMany({
+        include: {
+          parent: {
+            include: {
+              parent: true,
+            },
+          },
+          children: true,
+          _count: {
+            select: { products: true },
+          },
+        },
+        orderBy: {
+          parentId: "asc",
+          name: "asc",
+        },
+      });
+
+      return categories;
+    } catch (error) {
+      console.error("Error fetching all categories:", error);
+      throw new Error("Failed to fetch categories");
+    }
   }
 }
