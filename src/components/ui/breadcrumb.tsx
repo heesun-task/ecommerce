@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { MoreHorizontal, Slash } from "lucide-react"
 
@@ -8,12 +7,17 @@ function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />
 }
 
-function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
+function BreadcrumbList({
+  className,
+  variant = "dark",
+  ...props
+}: React.ComponentProps<"ol"> & { variant?: "light" | "dark" }) {
   return (
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        "flex flex-wrap items-center gap-1.5 text-xs break-words text-gray-300",
+        "flex flex-wrap items-center gap-1.5 text-xs break-words",
+        variant === "light" ? "text-gray-300" : "text-gray-500",
         className
       )}
       {...props}
@@ -34,29 +38,45 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
 function BreadcrumbLink({
   asChild,
   className,
+  variant = "dark",
   ...props
 }: React.ComponentProps<"a"> & {
   asChild?: boolean
+  variant?: "light" | "dark"
 }) {
   const Comp = asChild ? Slot : "a"
 
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn("transition-colors underline hover:text-white", className)}
+      className={cn(
+        "transition-colors underline",
+        variant === "light"
+          ? "hover:text-white text-gray-300"
+          : "hover:text-foreground text-gray-500",
+        className
+      )}
       {...props}
     />
   )
 }
 
-function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
+function BreadcrumbPage({
+  className,
+  variant = "dark",
+  ...props
+}: React.ComponentProps<"span"> & { variant?: "light" | "dark" }) {
   return (
     <span
       data-slot="breadcrumb-page"
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn(" text-white font-medium", className)}
+      className={cn(
+        "font-medium",
+        variant === "light" ? "text-white" : "text-foreground",
+        className
+      )}
       {...props}
     />
   )

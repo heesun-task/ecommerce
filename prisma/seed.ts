@@ -1,5 +1,3 @@
-// prisma/seed.ts
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -34,9 +32,9 @@ async function main() {
     }
   });
 
-  // ==================== Top Level Categories ====================
+  // ==================== Categories (Combined Slug Approach) ====================
   
-  // Gender categories
+  // Top level gender categories
   const mensCategory = await prisma.category.create({
     data: {
       name: 'Men\'s',
@@ -55,93 +53,558 @@ async function main() {
     }
   });
 
-  // Product type categories (gender-independent)
-  const jacketsCategory = await prisma.category.create({
+  // Women's categories with combined slugs
+  const womensClothingCategory = await prisma.category.create({
     data: {
-      name: 'Jackets & Vests',
-      slug: 'jackets-vests',
-      description: 'Outdoor jackets, shells, and vests for all',
-      image: '/images/categories/jackets-hero.jpg'
+      name: 'Women\'s Clothing',
+      slug: 'womens-clothing',
+      description: 'Women\'s outdoor clothing collection',
+      image: '/images/categories/womens-clothing-hero.jpg',
+      parentId: womensCategory.id
     }
   });
 
-  const topsCategory = await prisma.category.create({
+  const womensJacketsCategory = await prisma.category.create({
     data: {
-      name: 'Tops & Base Layers',
-      slug: 'tops-base-layers',
-      description: 'Shirts, hoodies, and base layers',
-      image: '/images/categories/tops-hero.jpg'
+      name: 'Women\'s Jackets & Coats',
+      slug: 'womens-jackets-vests',
+      description: 'Women\'s outdoor jackets, coats and vests',
+      image: '/images/categories/womens-jackets-hero.jpg',
+      parentId: womensClothingCategory.id
     }
   });
 
-  const bottomsCategory = await prisma.category.create({
+  const womensTopsCategory = await prisma.category.create({
     data: {
-      name: 'Bottoms',
-      slug: 'bottoms',
-      description: 'Pants, shorts, and hiking bottoms',
-      image: '/images/categories/bottoms-hero.jpg'
+      name: 'Women\'s Tops & Shirts',
+      slug: 'womens-tops-base-layers',
+      description: 'Women\'s tops, shirts and base layers',
+      image: '/images/categories/womens-tops-hero.jpg',
+      parentId: womensClothingCategory.id
     }
   });
 
-  const footwearCategory = await prisma.category.create({
+  const womensBottomsCategory = await prisma.category.create({
     data: {
-      name: 'Footwear',
-      slug: 'footwear',
-      description: 'Hiking boots, trail runners, and outdoor footwear',
-      image: '/images/categories/shoes-hero.jpg'
+      name: 'Women\'s Bottoms',
+      slug: 'womens-bottoms',
+      description: 'Women\'s pants, shorts and bottoms',
+      image: '/images/categories/womens-bottoms-hero.jpg',
+      parentId: womensClothingCategory.id
     }
   });
 
-  const bagsCategory = await prisma.category.create({
+  const womensDressesCategory = await prisma.category.create({
     data: {
-      name: 'Bags',
-      slug: 'bags',
-      description: 'Backpacks, daypacks, and outdoor accessories',
-      image: '/images/categories/bags-hero.jpg'
+      name: 'Women\'s Dresses & Skirts',
+      slug: 'womens-dresses',
+      description: 'Women\'s dresses and skirts for outdoor activities',
+      image: '/images/categories/womens-dresses-hero.jpg',
+      parentId: womensClothingCategory.id
     }
   });
 
-  // ==================== Subcategories ====================
-  
-  const hikingBoots = await prisma.category.create({
+  const womensFootwearCategory = await prisma.category.create({
     data: {
-      name: 'Hiking Boots',
-      slug: 'hiking-boots',
-      description: 'Waterproof hiking boots and mountaineering boots',
-      parentId: footwearCategory.id
+      name: 'Women\'s Footwear',
+      slug: 'womens-footwear',
+      description: 'Women\'s outdoor footwear collection',
+      image: '/images/categories/womens-footwear-hero.jpg',
+      parentId: womensCategory.id
     }
   });
 
-  const trailShoes = await prisma.category.create({
+  const womensHikingBootsCategory = await prisma.category.create({
     data: {
-      name: 'Trail Shoes',
-      slug: 'trail-shoes',
-      description: 'Trail running shoes and approach shoes',
-      parentId: footwearCategory.id
+      name: 'Women\'s Hiking Boots',
+      slug: 'womens-hiking-boots',
+      description: 'Women\'s hiking boots for all terrains',
+      image: '/images/categories/womens-hiking-boots-hero.jpg',
+      parentId: womensFootwearCategory.id
     }
   });
 
-  const backpacks = await prisma.category.create({
+  const womensTrailShoesCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Trail Running',
+      slug: 'womens-trail-shoes',
+      description: 'Women\'s trail running shoes',
+      image: '/images/categories/womens-trail-shoes-hero.jpg',
+      parentId: womensFootwearCategory.id
+    }
+  });
+
+  const womensCasualShoesCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Casual Shoes',
+      slug: 'womens-casual-shoes',
+      description: 'Women\'s casual and travel shoes',
+      image: '/images/categories/womens-casual-shoes-hero.jpg',
+      parentId: womensFootwearCategory.id
+    }
+  });
+
+  const womensAccessoriesCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Accessories',
+      slug: 'womens-accessories',
+      description: 'Women\'s outdoor accessories',
+      image: '/images/categories/womens-accessories-hero.jpg',
+      parentId: womensCategory.id
+    }
+  });
+
+  const womensHatsCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Hats & Beanies',
+      slug: 'womens-hats',
+      description: 'Women\'s hats and beanies',
+      parentId: womensAccessoriesCategory.id
+    }
+  });
+
+  const womensGlovesCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Gloves',
+      slug: 'womens-gloves',
+      description: 'Women\'s gloves and mittens',
+      parentId: womensAccessoriesCategory.id
+    }
+  });
+
+  const womensBagsCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Bags',
+      slug: 'womens-bags',
+      description: 'Women\'s bags and purses',
+      parentId: womensAccessoriesCategory.id
+    }
+  });
+
+  const womensSocksCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Socks',
+      slug: 'womens-socks',
+      description: 'Women\'s outdoor socks',
+      parentId: womensAccessoriesCategory.id
+    }
+  });
+
+  // Men's categories with combined slugs
+  const mensClothingCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Clothing',
+      slug: 'mens-clothing',
+      description: 'Men\'s outdoor clothing collection',
+      image: '/images/categories/mens-clothing-hero.jpg',
+      parentId: mensCategory.id
+    }
+  });
+
+  const mensJacketsCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Jackets & Coats',
+      slug: 'mens-jackets-vests',
+      description: 'Men\'s outdoor jackets, coats and vests',
+      image: '/images/categories/mens-jackets-hero.jpg',
+      parentId: mensClothingCategory.id
+    }
+  });
+
+  const mensTopsCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Tops & Shirts',
+      slug: 'mens-tops-base-layers',
+      description: 'Men\'s tops, shirts and base layers',
+      image: '/images/categories/mens-tops-hero.jpg',
+      parentId: mensClothingCategory.id
+    }
+  });
+
+  const mensBottomsCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Bottoms',
+      slug: 'mens-bottoms',
+      description: 'Men\'s pants, shorts and bottoms',
+      image: '/images/categories/mens-bottoms-hero.jpg',
+      parentId: mensClothingCategory.id
+    }
+  });
+
+  const mensFootwearCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Footwear',
+      slug: 'mens-footwear',
+      description: 'Men\'s outdoor footwear collection',
+      image: '/images/categories/mens-footwear-hero.jpg',
+      parentId: mensCategory.id
+    }
+  });
+
+  const mensHikingBootsCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Hiking Boots',
+      slug: 'mens-hiking-boots',
+      description: 'Men\'s hiking boots for all terrains',
+      image: '/images/categories/mens-hiking-boots-hero.jpg',
+      parentId: mensFootwearCategory.id
+    }
+  });
+
+  const mensTrailShoesCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Trail Running',
+      slug: 'mens-trail-shoes',
+      description: 'Men\'s trail running shoes',
+      image: '/images/categories/mens-trail-shoes-hero.jpg',
+      parentId: mensFootwearCategory.id
+    }
+  });
+
+  const mensCasualShoesCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Casual Shoes',
+      slug: 'mens-casual-shoes',
+      description: 'Men\'s casual and travel shoes',
+      image: '/images/categories/mens-casual-shoes-hero.jpg',
+      parentId: mensFootwearCategory.id
+    }
+  });
+
+  const mensAccessoriesCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Accessories',
+      slug: 'mens-accessories',
+      description: 'Men\'s outdoor accessories',
+      image: '/images/categories/mens-accessories-hero.jpg',
+      parentId: mensCategory.id
+    }
+  });
+
+  const mensHatsCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Hats & Beanies',
+      slug: 'mens-hats',
+      description: 'Men\'s hats and beanies',
+      parentId: mensAccessoriesCategory.id
+    }
+  });
+
+  const mensGlovesCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Gloves',
+      slug: 'mens-gloves',
+      description: 'Men\'s gloves and mittens',
+      parentId: mensAccessoriesCategory.id
+    }
+  });
+
+  const mensBagsCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Bags',
+      slug: 'mens-bags',
+      description: 'Men\'s bags and backpacks',
+      parentId: mensAccessoriesCategory.id
+    }
+  });
+
+  const mensSocksCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Socks',
+      slug: 'mens-socks',
+      description: 'Men\'s outdoor socks',
+      parentId: mensAccessoriesCategory.id
+    }
+  });
+
+  // Gear categories
+  const gearCategory = await prisma.category.create({
+    data: {
+      name: 'Gear',
+      slug: 'gear',
+      description: 'Outdoor gear and equipment',
+      image: '/images/categories/gear-hero.jpg'
+    }
+  });
+
+  const backpacksCategory = await prisma.category.create({
     data: {
       name: 'Backpacks',
       slug: 'backpacks',
-      description: 'Multi-day backpacks and expedition packs',
-      parentId: bagsCategory.id
+      description: 'Hiking and travel backpacks',
+      image: '/images/categories/backpacks-hero.jpg',
+      parentId: gearCategory.id
     }
   });
 
-  const daypacks = await prisma.category.create({
+  const hikingBackpacksCategory = await prisma.category.create({
+    data: {
+      name: 'Hiking Backpacks',
+      slug: 'hiking-backpacks',
+      description: 'Multi-day hiking backpacks',
+      parentId: backpacksCategory.id
+    }
+  });
+
+  const daypacksCategory = await prisma.category.create({
     data: {
       name: 'Daypacks',
       slug: 'daypacks',
       description: 'Day hiking packs and travel bags',
-      parentId: bagsCategory.id
+      parentId: backpacksCategory.id
+    }
+  });
+
+  const travelPacksCategory = await prisma.category.create({
+    data: {
+      name: 'Travel Packs',
+      slug: 'travel-packs',
+      description: 'Travel backpacks and luggage',
+      parentId: backpacksCategory.id
+    }
+  });
+
+  const campingCategory = await prisma.category.create({
+    data: {
+      name: 'Camping',
+      slug: 'camping',
+      description: 'Camping gear and equipment',
+      image: '/images/categories/camping-hero.jpg',
+      parentId: gearCategory.id
+    }
+  });
+
+  const tentsCategory = await prisma.category.create({
+    data: {
+      name: 'Tents',
+      slug: 'tents',
+      description: 'Backpacking and camping tents',
+      parentId: campingCategory.id
+    }
+  });
+
+  const sleepingBagsCategory = await prisma.category.create({
+    data: {
+      name: 'Sleeping Bags',
+      slug: 'sleeping-bags',
+      description: 'Sleeping bags for all seasons',
+      parentId: campingCategory.id
+    }
+  });
+
+  const sleepingPadsCategory = await prisma.category.create({
+    data: {
+      name: 'Sleeping Pads',
+      slug: 'sleeping-pads',
+      description: 'Sleeping pads and mattresses',
+      parentId: campingCategory.id
+    }
+  });
+
+  const techToolsCategory = await prisma.category.create({
+    data: {
+      name: 'Tech & Tools',
+      slug: 'tech-tools',
+      description: 'Outdoor technology and tools',
+      image: '/images/categories/tech-tools-hero.jpg',
+      parentId: gearCategory.id
+    }
+  });
+
+  const gpsCategory = await prisma.category.create({
+    data: {
+      name: 'GPS & Navigation',
+      slug: 'gps',
+      description: 'GPS devices and navigation tools',
+      parentId: techToolsCategory.id
+    }
+  });
+
+  const headlampsCategory = await prisma.category.create({
+    data: {
+      name: 'Headlamps',
+      slug: 'headlamps',
+      description: 'Headlamps and lighting equipment',
+      parentId: techToolsCategory.id
+    }
+  });
+
+  const multiToolsCategory = await prisma.category.create({
+    data: {
+      name: 'Multi-tools',
+      slug: 'multi-tools',
+      description: 'Multi-tools and outdoor knives',
+      parentId: techToolsCategory.id
+    }
+  });
+
+  // Activities categories
+  const activitiesCategory = await prisma.category.create({
+    data: {
+      name: 'Activities',
+      slug: 'activities',
+      description: 'Gear organized by outdoor activities',
+      image: '/images/categories/activities-hero.jpg'
+    }
+  });
+
+  const hikingCategory = await prisma.category.create({
+    data: {
+      name: 'Hiking',
+      slug: 'hiking',
+      description: 'Hiking gear and equipment',
+      parentId: activitiesCategory.id
+    }
+  });
+
+  const dayHikingCategory = await prisma.category.create({
+    data: {
+      name: 'Day Hiking',
+      slug: 'day-hiking',
+      description: 'Day hiking essentials',
+      parentId: hikingCategory.id
+    }
+  });
+
+  const backpackingCategory = await prisma.category.create({
+    data: {
+      name: 'Backpacking',
+      slug: 'backpacking',
+      description: 'Multi-day backpacking gear',
+      parentId: hikingCategory.id
+    }
+  });
+
+  const mountaineeringCategory = await prisma.category.create({
+    data: {
+      name: 'Mountaineering',
+      slug: 'mountaineering',
+      description: 'Technical mountaineering equipment',
+      parentId: hikingCategory.id
+    }
+  });
+
+  const climbingCategory = await prisma.category.create({
+    data: {
+      name: 'Climbing',
+      slug: 'climbing',
+      description: 'Rock climbing and bouldering gear',
+      parentId: activitiesCategory.id
+    }
+  });
+
+  const rockClimbingCategory = await prisma.category.create({
+    data: {
+      name: 'Rock Climbing',
+      slug: 'rock-climbing',
+      description: 'Outdoor rock climbing gear',
+      parentId: climbingCategory.id
+    }
+  });
+
+  const indoorClimbingCategory = await prisma.category.create({
+    data: {
+      name: 'Indoor Climbing',
+      slug: 'indoor-climbing',
+      description: 'Indoor climbing and gym gear',
+      parentId: climbingCategory.id
+    }
+  });
+
+  const boulderingCategory = await prisma.category.create({
+    data: {
+      name: 'Bouldering',
+      slug: 'bouldering',
+      description: 'Bouldering equipment and gear',
+      parentId: climbingCategory.id
+    }
+  });
+
+  const runningCategory = await prisma.category.create({
+    data: {
+      name: 'Running',
+      slug: 'running',
+      description: 'Trail and road running gear',
+      parentId: activitiesCategory.id
+    }
+  });
+
+  const trailRunningCategory = await prisma.category.create({
+    data: {
+      name: 'Trail Running',
+      slug: 'trail-running',
+      description: 'Trail running shoes and gear',
+      parentId: runningCategory.id
+    }
+  });
+
+  const ultraRunningCategory = await prisma.category.create({
+    data: {
+      name: 'Ultra Running',
+      slug: 'ultra-running',
+      description: 'Ultra marathon running gear',
+      parentId: runningCategory.id
+    }
+  });
+
+  const roadRunningCategory = await prisma.category.create({
+    data: {
+      name: 'Road Running',
+      slug: 'road-running',
+      description: 'Road running shoes and gear',
+      parentId: runningCategory.id
+    }
+  });
+
+  const travelCategory = await prisma.category.create({
+    data: {
+      name: 'Travel',
+      slug: 'travel',
+      description: 'Adventure travel gear',
+      parentId: activitiesCategory.id
+    }
+  });
+
+  // Sale categories
+  const saleCategory = await prisma.category.create({
+    data: {
+      name: 'Sale',
+      slug: 'sale',
+      description: 'Discounted outdoor gear and clothing',
+      image: '/images/categories/sale-hero.jpg'
+    }
+  });
+
+  const saleWomensCategory = await prisma.category.create({
+    data: {
+      name: 'Women\'s Sale',
+      slug: 'sale-womens',
+      description: 'Women\'s sale items',
+      parentId: saleCategory.id
+    }
+  });
+
+  const saleMensCategory = await prisma.category.create({
+    data: {
+      name: 'Men\'s Sale',
+      slug: 'sale-mens',
+      description: 'Men\'s sale items',
+      parentId: saleCategory.id
+    }
+  });
+
+  const saleGearCategory = await prisma.category.create({
+    data: {
+      name: 'Gear Sale',
+      slug: 'sale-gear',
+      description: 'Discounted outdoor gear',
+      parentId: saleCategory.id
     }
   });
 
   console.log('Categories created');
 
-  // ==================== Products with Multiple Category Assignment ====================
+  // ==================== Products with Category Assignment ====================
 
   // 1. Men's Down Jacket
   const mensDownJacket = await prisma.product.create({
@@ -157,7 +620,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: jacketsCategory.id }
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensJacketsCategory.id }
         ]
       }
     }
@@ -221,7 +685,68 @@ async function main() {
     }
   }
 
-  // 2. Men's Padded Jacket
+  // 2. Men's Tech Hoodie
+  const mensHoodie = await prisma.product.create({
+    data: {
+      name: 'Men\'s Tech Hoodie',
+      slug: 'mens-tech-hoodie',
+      description: 'Technical hoodie with moisture-wicking fabric.',
+      shortDescription: 'Technical hoodie with moisture-wicking',
+      basePrice: 129,
+      gender: 'MENS',
+      material: 'Polyester Blend',
+      featured: true,
+      categories: {
+        create: [
+          { categoryId: mensCategory.id },
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensTopsCategory.id }
+        ]
+      }
+    }
+  });
+
+  const mensHoodieBlack = await prisma.productColor.create({
+    data: {
+      productId: mensHoodie.id,
+      name: 'Black',
+      code: '#000000',
+      price: 99,
+      images: ['/images/products/mens-hoodie-black-1.avif']
+    }
+  });
+
+  const mensHoodieGray = await prisma.productColor.create({
+    data: {
+      productId: mensHoodie.id,
+      name: 'Gray',
+      code: '#6B7280',
+      price: 120,
+      images: ['/images/products/mens-hoodie-gray-1.avif']
+    }
+  });
+
+  // Men's Hoodie variants
+  const mensHoodieColors = [
+    { colorObj: mensHoodieBlack, stock: [8, 12, 10, 6] },
+    { colorObj: mensHoodieGray, stock: [7, 11, 9, 5] }
+  ];
+
+  for (const { colorObj, stock } of mensHoodieColors) {
+    for (let i = 0; i < mensDownSizes.length; i++) {
+      await prisma.productVariant.create({
+        data: {
+          sku: `MH-${mensDownSizes[i]}-${colorObj.name.substring(0, 3).toUpperCase()}`,
+          productId: mensHoodie.id,
+          colorId: colorObj.id,
+          size: mensDownSizes[i],
+          stock: stock[i]
+        }
+      });
+    }
+  }
+
+  // 3. Men's Padded Jacket
   const mensPaddedJacket = await prisma.product.create({
     data: {
       name: 'Men\'s Padded Jacket',
@@ -234,7 +759,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: jacketsCategory.id }
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensJacketsCategory.id }
         ]
       }
     }
@@ -278,46 +804,7 @@ async function main() {
     }
   }
 
-  // 3. Men's Hoodie
-  const mensHoodie = await prisma.product.create({
-    data: {
-      name: 'Men\'s Tech Hoodie',
-      slug: 'mens-tech-hoodie',
-      description: 'Technical hoodie with moisture-wicking fabric.',
-      shortDescription: 'Technical hoodie with moisture-wicking',
-      basePrice: 129,
-      gender: 'MENS',
-      material: 'Polyester Blend',
-      featured: true,
-      categories: {
-        create: [
-          { categoryId: mensCategory.id },
-          { categoryId: topsCategory.id }
-        ]
-      }
-    }
-  });
-
-  const mensHoodieBlack = await prisma.productColor.create({
-    data: {
-      productId: mensHoodie.id,
-      name: 'Black',
-      code: '#000000',
-      price: 99,
-      images: ['/images/products/mens-hoodie-black-1.avif']
-    }
-  });
-
-  const mensHoodieGray = await prisma.productColor.create({
-    data: {
-      productId: mensHoodie.id,
-      name: 'Gray',
-      code: '#6B7280',
-      price: 120,
-      images: ['/images/products/mens-hoodie-gray-1.avif']
-    }
-  });
-
+  // Add Red hoodie color that was missing
   const mensHoodieRed = await prisma.productColor.create({
     data: {
       productId: mensHoodie.id,
@@ -327,25 +814,17 @@ async function main() {
     }
   });
 
-  // Men's Hoodie variants
-  const mensHoodieColors = [
-    { colorObj: mensHoodieBlack, stock: [8, 12, 10, 6] },
-    { colorObj: mensHoodieGray, stock: [7, 11, 9, 5] },
-    { colorObj: mensHoodieRed, stock: [5, 8, 7, 4] }
-  ];
-
-  for (const { colorObj, stock } of mensHoodieColors) {
-    for (let i = 0; i < mensDownSizes.length; i++) {
-      await prisma.productVariant.create({
-        data: {
-          sku: `MH-${mensDownSizes[i]}-${colorObj.name.substring(0, 3).toUpperCase()}`,
-          productId: mensHoodie.id,
-          colorId: colorObj.id,
-          size: mensDownSizes[i],
-          stock: stock[i]
-        }
-      });
-    }
+  // Add variants for red hoodie
+  for (let i = 0; i < mensDownSizes.length; i++) {
+    await prisma.productVariant.create({
+      data: {
+        sku: `MH-${mensDownSizes[i]}-RED`,
+        productId: mensHoodie.id,
+        colorId: mensHoodieRed.id,
+        size: mensDownSizes[i],
+        stock: [5, 8, 7, 4][i]
+      }
+    });
   }
 
   // 4. Men's Hiking Pants
@@ -361,7 +840,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: bottomsCategory.id }
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensBottomsCategory.id }
         ]
       }
     }
@@ -403,7 +883,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: bottomsCategory.id }
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensBottomsCategory.id }
         ]
       }
     }
@@ -460,7 +941,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: bottomsCategory.id }
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensBottomsCategory.id }
         ]
       }
     }
@@ -505,7 +987,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: mensCategory.id },
-          { categoryId: jacketsCategory.id }
+          { categoryId: mensClothingCategory.id },
+          { categoryId: mensJacketsCategory.id }
         ]
       }
     }
@@ -548,7 +1031,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: jacketsCategory.id }
+          { categoryId: womensClothingCategory.id },
+          { categoryId: womensJacketsCategory.id }
         ]
       }
     }
@@ -606,7 +1090,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: jacketsCategory.id }
+          { categoryId: womensClothingCategory.id },
+          { categoryId: womensJacketsCategory.id }
         ]
       }
     }
@@ -665,7 +1150,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: topsCategory.id }
+          { categoryId: womensClothingCategory.id },
+          { categoryId: womensTopsCategory.id }
         ]
       }
     }
@@ -709,7 +1195,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: bottomsCategory.id }
+          { categoryId: womensClothingCategory.id },
+          { categoryId: womensBottomsCategory.id }
         ]
       }
     }
@@ -767,7 +1254,8 @@ async function main() {
       categories: {
         create: [
           { categoryId: womensCategory.id },
-          { categoryId: bottomsCategory.id }
+          { categoryId: womensClothingCategory.id },
+          { categoryId: womensBottomsCategory.id }
         ]
       }
     }
@@ -796,6 +1284,36 @@ async function main() {
     });
   }
 
+  // 4. Men's Hoodie - Deep Blue variant
+  const mensHoodieDeepBlue = await prisma.productColor.create({
+    data: {
+      productId: mensHoodie.id,
+      name: 'Deep Blue',
+      code: '#1E3A8A',
+      images: ['/images/products/mens-hoodie-deep-blue-1.avif']
+    }
+  });
+
+  // Add deep blue to mens hoodie colors array
+  const mensHoodieColorsComplete = [
+    { colorObj: mensHoodieBlack, stock: [8, 12, 10, 6] },
+    { colorObj: mensHoodieGray, stock: [7, 11, 9, 5] },
+    { colorObj: mensHoodieDeepBlue, stock: [6, 10, 8, 4] }
+  ];
+
+  // Add variants for deep blue
+  for (let i = 0; i < mensDownSizes.length; i++) {
+    await prisma.productVariant.create({
+      data: {
+        sku: `MH-${mensDownSizes[i]}-${mensHoodieDeepBlue.name.replace(' ', '').substring(0, 3).toUpperCase()}`,
+        productId: mensHoodie.id,
+        colorId: mensHoodieDeepBlue.id,
+        size: mensDownSizes[i],
+        stock: mensHoodieColorsComplete[2].stock[i]
+      }
+    });
+  }
+
   // 13. Hiking Shoes (Unisex - multiple category assignment)
   const hikingShoes = await prisma.product.create({
     data: {
@@ -811,8 +1329,12 @@ async function main() {
         create: [
           { categoryId: mensCategory.id },
           { categoryId: womensCategory.id },
-          { categoryId: footwearCategory.id },
-          { categoryId: hikingBoots.id }
+          { categoryId: mensFootwearCategory.id },
+          { categoryId: womensFootwearCategory.id },
+          { categoryId: mensHikingBootsCategory.id },
+          { categoryId: womensHikingBootsCategory.id },
+          { categoryId: hikingCategory.id },
+          { categoryId: dayHikingCategory.id }
         ]
       }
     }
@@ -883,8 +1405,10 @@ async function main() {
         create: [
           { categoryId: mensCategory.id },
           { categoryId: womensCategory.id },
-          { categoryId: footwearCategory.id },
-          { categoryId: trailShoes.id }
+          { categoryId: womensFootwearCategory.id },
+          { categoryId: womensTrailShoesCategory.id },
+          { categoryId: mensFootwearCategory.id },
+          { categoryId: mensTrailShoesCategory.id }
         ]
       }
     }
@@ -950,8 +1474,12 @@ async function main() {
       material: 'Ripstop Nylon, Aluminum Frame',
       categories: {
         create: [
-          { categoryId: bagsCategory.id },
-          { categoryId: backpacks.id }
+          { categoryId: backpacksCategory.id },
+          { categoryId: womensBagsCategory.id },
+          { categoryId: mensBagsCategory.id },
+          { categoryId: hikingBackpacksCategory.id },
+          { categoryId: gearCategory.id },
+          { categoryId: travelPacksCategory.id },
         ]
       }
     }
@@ -1048,8 +1576,12 @@ async function main() {
       material: 'Ultralight Nylon',
       categories: {
         create: [
-          { categoryId: bagsCategory.id },
-          { categoryId: backpacks.id }
+          { categoryId: backpacksCategory.id },
+          { categoryId: womensBagsCategory.id },
+          { categoryId: mensBagsCategory.id },
+          { categoryId: daypacksCategory.id },
+          { categoryId: travelPacksCategory.id },
+          { categoryId: gearCategory.id },
         ]
       }
     }
@@ -1124,8 +1656,14 @@ async function main() {
       featured: true,
       categories: {
         create: [
-          { categoryId: bagsCategory.id },
-          { categoryId: daypacks.id }
+          { categoryId: daypacksCategory.id },
+          { categoryId: womensBagsCategory.id },
+          { categoryId: mensBagsCategory.id },
+          { categoryId: backpacksCategory.id },
+          { categoryId: travelPacksCategory.id },
+          { categoryId: dayHikingCategory.id },
+          { categoryId: travelCategory.id },
+          { categoryId: gearCategory.id },
         ]
       }
     }

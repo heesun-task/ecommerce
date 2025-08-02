@@ -14,9 +14,10 @@ import { BreadcrumbItemType } from "@/types/category.types"
 type ProductBreadcrumbsProps = {
   items: BreadcrumbItemType[]
   className?: string
+  variant?: "light" | "dark"
 }
 
-export function ProductBreadcrumbs({ items, className }: ProductBreadcrumbsProps) {
+export function ProductBreadcrumbs({ items, className, variant="dark" }: ProductBreadcrumbsProps) {
   return (
     <Breadcrumb className={className}>
       <BreadcrumbList>
@@ -36,12 +37,13 @@ export function ProductBreadcrumbs({ items, className }: ProductBreadcrumbsProps
               <BreadcrumbItem>
                 {item.href && !isLast ? (
                   <BreadcrumbLink 
-                    href={item.href}
+                    href={"/categories" + item.href}
+                    variant={variant}
                   >
                     {item.label}
                   </BreadcrumbLink>
                 ) : (
-                  <BreadcrumbPage>
+                  <BreadcrumbPage variant={variant}>
                     {item.label}
                   </BreadcrumbPage>
                 )}
