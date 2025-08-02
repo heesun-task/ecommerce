@@ -16,7 +16,7 @@ const ProductGrid = ({ products, topLevelCategory }: ProductGridProps) => {
           <ShoppingBag className="w-12 h-12 mb-4 text-gray-400" />
           <h2 className="text-xl font-semibold">Products coming soon!</h2>
           <p className="mt-2 text-sm">
-            We're working hard to add more items. In the meantime, feel free to
+            We&apos;re working hard to add more items. In the meantime, feel free to
             explore our other collections
           </p>
 
