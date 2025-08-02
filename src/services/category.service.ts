@@ -39,7 +39,7 @@ export class CategoryService {
     const getParentCategories = (cat: CategoryWithChildren) => {
       if (cat.parent) {
         breadcrumbs.unshift({ label: cat.parent.name, href: `/${cat.parent.slug}` });
-        getParentCategories(cat.parent);
+        getParentCategories(cat.parent as CategoryWithChildren);
       }
     };
 

@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface AuthBannerProps {
   onBack: () => void;
@@ -19,7 +20,7 @@ const AuthBanner = ({ onBack }: AuthBannerProps) => {
       
       {/* PEAK branding section */}
       <div className="relative w-full h-40 lg:h-screen flex flex-col justify-center items-center text-white p-8">
-        <img
+        <Image
           src="/images/login-banner-1.png"
           alt="Login Banner"
           className="absolute z-1 left-0 top-0 h-full w-full object-cover"

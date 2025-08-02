@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,20 +18,20 @@ export default function Home() {
             Step Into the Summit
           </h2>
           <p className="whitespace-pre-line text-md lg:text-xl mt-4">
-            From frozen ridgelines to muddy trails, <br/>trust what's under your
+            From frozen ridgelines to muddy trails, <br/>trust what&apos;s under your
             feet.
           </p>
 
           <div className="flex flex-col gap-y-4 mt-16">
             <Link passHref href="/categories/mens-footwear">
               <Button variant="outline" size="lg">
-                Shop Men's
+                Shop Men&apos;s
               </Button>
             </Link>
 
             <Link passHref href="/categories/womens-footwear">
               <Button variant="outline" size="lg">
-                Shop Women's
+                Shop Women&apos;s
               </Button>
             </Link>
 

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Pagination, SearchParams } from "@/types/category.types";
+import { Prisma } from "@prisma/client";
 
 // fetches products based on various filters, sorting options, and pagination
 export async function getFilteredProducts(
@@ -18,7 +19,7 @@ export async function getFilteredProducts(
     const page = Number(searchParams.page) || 1;
     const limit = 20;
 
-    const where: any = {
+    const where:  Prisma.ProductWhereInput  = {
       active: true,
       categories: {
         some: {
@@ -40,17 +41,17 @@ export async function getFilteredProducts(
 
     // price range filter
     if (minPrice !== undefined || maxPrice !== undefined) {
-      const priceConditions: any[] = [];
+      const priceConditions: Prisma.ProductWhereInput[] = [];
       
       // when base price is in range
-      const basePriceCondition: any = {};
+      const basePriceCondition: Prisma.IntFilter = {};
       if (minPrice !== undefined) basePriceCondition.gte = minPrice;
       if (maxPrice !== undefined) basePriceCondition.lte = maxPrice;
       
       priceConditions.push({ basePrice: basePriceCondition });
 
       // when color price is in range
-      const colorPriceCondition: any = {
+      const colorPriceCondition: Prisma.ProductWhereInput = {
         colors: {
           some: {
             price: {
@@ -68,7 +69,7 @@ export async function getFilteredProducts(
     }
 
     // Sorting
-    let orderBy: any = {};
+    let orderBy: Prisma.ProductOrderByWithRelationInput = {};
     switch (sortBy) {
       case "name-asc":
         orderBy = { name: "asc" };
@@ -161,7 +162,7 @@ export async function getFilteredProducts(
   }
 }
 
-export async function getSaleProducts(limit?: number) {
+export async function getSaleProducts() {
   try {
     const products = await prisma.product.findMany({
       where: {

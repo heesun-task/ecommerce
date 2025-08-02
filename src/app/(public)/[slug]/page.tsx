@@ -35,7 +35,7 @@ export default async function CategoryPage({
   // Extract filtering and sorting options from the search parameters
 
   // Fetch products matching the current category and filters, with pagination
-  const { products, pagination } = await getFilteredProducts(
+  const { products } = await getFilteredProducts(
     resolvedParams.slug,
     resolvedSearchParams
   );

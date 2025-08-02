@@ -42,7 +42,7 @@ export default async function CategoryPage({
     ...(genderFilter && { gender: genderFilter })
   } as SearchParams;
 
-  const { products, pagination } = await getFilteredProducts(
+  const { products } = await getFilteredProducts(
     slug,
     enhancedSearchParams
   );

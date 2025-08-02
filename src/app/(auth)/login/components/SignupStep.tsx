@@ -1,4 +1,5 @@
-import { useState } from "react";
+import Link from "next/link";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -108,15 +109,15 @@ const SignupStep = ({
         </Button>
 
         <div className="text-xs text-gray-500 text-center">
-          By creating an account, you agree to PEAK's{" "}
-          <a href="/terms" className="underline hover:text-peak-maple">
+          By creating an account, you agree to PEAK&apos;s&nbsp;
+          <Link href="/terms" className="underline hover:text-peak-maple">
             Terms of Service
-          </a>{" "}
+          </Link>&nbsp;
           <br/>
-          and{" "}
-          <a href="/privacy" className="underline hover:text-peak-maple">
+          and&nbsp;
+          <Link href="/privacy" className="underline hover:text-peak-maple">
             Privacy Policy
-          </a>
+          </Link>
           .
         </div>
       </form>

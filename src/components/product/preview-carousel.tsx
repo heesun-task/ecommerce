@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
@@ -27,6 +27,11 @@ export function PreviewCarousel({
   changeSlideByIndex,
   productColors = [],
 }: PreviewCarouselProps) {
+
+  const handleSlide = (index: number) => {
+    changeSlideByIndex(index);
+  };
+  
   const thumbnailColors = useMemo(
     () =>
       productColors.map(({ code, name }, index) => (
@@ -50,12 +55,8 @@ export function PreviewCarousel({
           </TooltipTrigger>
         </Tooltip>
       )),
-    [productColors, current]
+    [productColors, current, handleSlide]
   );
-
-  const handleSlide = (index: number) => {
-    changeSlideByIndex(index);
-  };
 
   return (
     <div className="space-y-4 mb-5">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import { useEmailCheck } from "./useEmailCheck";
 import { useAuth } from "./useAuth";
 import { AuthFlowReturn, AuthStep } from "../types/auth";
@@ -25,6 +26,7 @@ export const useAuthFlow = (): AuthFlowReturn => {
       setStep(userExists ? "password" : "signup");
     } catch (err) {
       setError("Failed to check email. Please try again.");
+      console.error("Email check error:", err);
     } finally {
       setLoading(false);
     }

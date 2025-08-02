@@ -1,6 +1,6 @@
 import Container from "../layout/container";
 import ProductCard from "./product-card";
-import { ProductSummary, ProductWithColors, ProductWithDetails } from "@/types/product.types";
+import { ProductSummary } from "@/types/product.types";
 
 type ProductGridProps = {
   products: ProductSummary[];

@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
     const cookieStore = await cookies();
     // const accessToken = cookieStore.get('accessToken')?.value;
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     // remove refrehToken from DB
     if (refreshToken) {
-      await prisma.session.deleteMany({
+      await prisma.session.delete({
         where: { refreshToken }
       });
     }
