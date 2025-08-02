@@ -28,10 +28,12 @@ export function PreviewCarousel({
   productColors = [],
 }: PreviewCarouselProps) {
 
-  const handleSlide = (index: number) => {
-    changeSlideByIndex(index);
-  };
-  
+  const handleSlide = useMemo(() => {
+    return (index: number) => {
+      changeSlideByIndex(index);
+    };
+  }, [changeSlideByIndex]);
+
   const thumbnailColors = useMemo(
     () =>
       productColors.map(({ code, name }, index) => (

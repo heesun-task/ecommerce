@@ -13,7 +13,6 @@ type CategoryPageProps = {
 export default async function CategoryPage({
   params,
   searchParams,
-  ...props
 }: CategoryPageProps) {
   // Extract the category slug from route params
   const resolvedParams = await params;
